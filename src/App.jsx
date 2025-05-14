@@ -60,7 +60,7 @@ function App() {
   const sendTestNotification = async () => {
     try {
       const res = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/sendNotification",
+        "https://f334-45-160-89-106.ngrok-free.app/send-notification",
         {
           method: "POST",
           headers: {
