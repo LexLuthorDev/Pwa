@@ -27,7 +27,7 @@ function App() {
       );
       const data = await res.json();
 
-      console.log("Chave VAPID:", data);
+      //console.log("Chave VAPID:", data);
 
       const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
 
