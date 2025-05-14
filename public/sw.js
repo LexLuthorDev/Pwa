@@ -15,7 +15,7 @@ self.addEventListener("push", (event) => {
     body: data.body || "Você tem uma nova notificação!",
     icon: data.icon || "/icon_144.png",
     data: {
-      url: data.url || "/"
+      url: data.data.url || "/"
     }
   };
 
