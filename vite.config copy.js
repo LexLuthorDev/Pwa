@@ -13,17 +13,11 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: true, // ou false, se for manual
+      injectRegister: false,
 
-      // Incluir seu service worker personalizado
-      srcDir: "public", // ou "src" se estiver usando lógica dinâmica
-      filename: "sw.js",
-
-      strategies: "injectManifest", // obrigatório para usar um SW customizado
-
-      injectManifest: {
-        swSrc: "public/sw.js", // caminho real do arquivo
-        swDest: "sw.js", // nome final no root
+      pwaAssets: {
+        disabled: false,
+        config: true,
       },
 
       manifest: {
