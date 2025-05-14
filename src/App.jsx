@@ -10,12 +10,12 @@ function App() {
 
   const subscribeToPush = async () => {
     try {
-      
       // 2. Busca chave pública do backend
       const res = await fetch(
         "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
         {
           method: "POST",
+          body: JSON.stringify({}),
         }
       );
       const data = await res.json();
@@ -31,13 +31,16 @@ function App() {
       });
 
       // 4. Envia subscription ao backend
-      const resSubscription = await fetch("https://f334-45-160-89-106.ngrok-free.app/subscribe", {
-        method: "POST",
-        body: JSON.stringify(subscription),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const resSubscription = await fetch(
+        "https://f334-45-160-89-106.ngrok-free.app/subscribe",
+        {
+          method: "POST",
+          body: JSON.stringify(subscription),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const dataSubscription = await resSubscription.json();
       console.log(dataSubscription);
