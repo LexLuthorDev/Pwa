@@ -109,7 +109,7 @@ function App() {
       <button onClick={sendTestNotification}>
         Enviar Notificação de Teste 🚀
       </button>
-      F
+
       <PWABadge />
     </>
   );
