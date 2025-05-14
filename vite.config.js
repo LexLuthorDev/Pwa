@@ -1,29 +1,21 @@
-import { VitePWA } from "vite-plugin-pwa";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { VitePWA } from "vite-plugin-pwa";
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  /*server: {
-    allowedHosts: [
-      "d44d-45-160-89-106.ngrok-free.app", // coloque seu host atual do ngrok aqui
-    ],
-  },*/
   plugins: [
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: true, // ou false, se for manual
+      injectRegister: true,
 
-      // Incluir seu service worker personalizado
-      srcDir: "public", // ou "src" se estiver usando lógica dinâmica
+      // 🔧 usar seu SW customizado
+      strategies: "injectManifest",
+      srcDir: "src",
       filename: "sw.js",
-
-      strategies: "injectManifest", // obrigatório para usar um SW customizado
-
       injectManifest: {
-        swSrc: "public/sw.js", // caminho real do arquivo
-        swDest: "sw.js", // nome final no root
+        swSrc: "src/sw.js",
+        swDest: "sw.js",
       },
 
       manifest: {
