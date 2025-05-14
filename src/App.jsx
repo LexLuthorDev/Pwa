@@ -10,14 +10,7 @@ function App() {
 
   const subscribeToPush = async () => {
     try {
-      /*if (!("serviceWorker" in navigator)) {
-        alert("Service Worker não suportado!");
-        return;
-      }
-
-      // 1. Registra o Service Worker
-      const reg = await navigator.serviceWorker.register("/sw.js");*/
-
+      
       // 2. Busca chave pública do backend
       const res = await fetch(
         "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
