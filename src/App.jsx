@@ -11,49 +11,85 @@ function App() {
   const subscribeToPush = async () => {
     try {
       if (!("serviceWorker" in navigator)) {
-        alert("Service Worker não suportado!");
+        alert("Service Worker não é suportado neste navegador.");
         return;
       }
 
-      // 1. Registra o Service Worker
-      const reg = await navigator.serviceWorker.register("/sw.js");
+      // 1. Registro do Service Worker
+      let reg;
+      try {
+        reg = await navigator.serviceWorker.register("/sw.js");
+        console.log("Service Worker registrado:", reg);
+      } catch (err) {
+        console.error("Erro ao registrar o Service Worker:", err);
+        alert("Falha ao registrar o Service Worker.");
+        return;
+      }
 
-      // 2. Busca chave pública do backend
-      const res = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
-        {
-          method: "POST",
-        }
-      );
-      const data = await res.json();
+      // 2. Busca chave pública VAPID
+      let vapidKey;
+      try {
+        const res = await fetch(
+          "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
+          {
+            method: "POST",
+          }
+        );
 
-      //console.log("Chave VAPID:", data);
+        if (!res.ok)
+          throw new Error("Resposta inválida ao buscar chave VAPID.");
 
-      const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
+        const data = await res.json();
+        vapidKey = urlBase64ToUint8Array(data.publicKey);
+      } catch (err) {
+        console.error("Erro ao obter chave VAPID:", err);
+        alert("Falha ao buscar chave pública para notificações.");
+        return;
+      }
 
-      // 3. Realiza inscrição no push
-      const subscription = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: convertedVapidKey,
-      });
+      // 3. Inscrição no Push
+      let subscription;
+      try {
+        subscription = await reg.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: vapidKey,
+        });
+        console.log("Inscrição realizada:", subscription);
+      } catch (err) {
+        console.error("Erro ao se inscrever no push:", err);
+        alert("Falha ao realizar a inscrição de notificações.");
+        return;
+      }
 
-      // 4. Envia subscription ao backend
-      const resSubscription = await fetch("https://f334-45-160-89-106.ngrok-free.app/subscribe", {
-        method: "POST",
-        body: JSON.stringify(subscription),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      // 4. Envia inscrição ao backend
+      try {
+        const resSub = await fetch(
+          "https://f334-45-160-89-106.ngrok-free.app/subscribe",
+          {
+            method: "POST",
+            body: JSON.stringify(subscription),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
 
-      const dataSubscription = await resSubscription.json();
-      console.log(dataSubscription);
+        if (!resSub.ok)
+          throw new Error("Resposta inválida ao enviar inscrição.");
+
+        const dataSub = await resSub.json();
+        console.log("Inscrição enviada ao backend:", dataSub);
+      } catch (err) {
+        console.error("Erro ao enviar inscrição ao backend:", err);
+        alert("Falha ao enviar inscrição para o servidor.");
+        return;
+      }
 
       setSubscribed(true);
-      alert("Inscrição realizada com sucesso!");
+      alert("Notificações ativadas com sucesso! ✅");
     } catch (error) {
-      console.error("Erro ao se inscrever:", error);
-      alert("Erro ao se inscrever. Veja o console.");
+      console.error("Erro inesperado no processo de inscrição:", error);
+      alert("Erro inesperado. Veja o console para mais detalhes.");
     }
   };
 
