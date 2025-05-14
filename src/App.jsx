@@ -19,7 +19,7 @@ function App() {
       const reg = await navigator.serviceWorker.register("/sw.js");
 
       // 2. Busca chave pública do backend
-      const res = await fetch("https://f334-45-160-89-106.ngrok-free.app/BP6tqQzNkWkSVdTivaFcRFP_G6XGq0m3Bmb44NGg5c6MDTbdh13jSDsFPb0KRv44tTDp5xGX9CEjgGn8SeVGo5M");
+      const res = await fetch("https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey");
       const data = await res.json();
 
       const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
