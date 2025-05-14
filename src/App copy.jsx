@@ -3,8 +3,24 @@
 import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
+import {
+  AlertTriangle,
+  BookOpen,
+  DollarSign,
+  Facebook,
+  GamepadIcon,
+  HelpCircle,
+  Instagram,
+  Mail,
+  MessageSquare,
+  Phone,
+  Shield,
+  Twitter,
+  Users,
+  Zap,
+} from "lucide-react"
+
 // ==================== COMPONENTE APP PRINCIPAL ====================
-// Vamos modificar o componente App para incluir as novas seções
 function App() {
   return (
     <div className="min-h-screen flex flex-col bg-zinc-900 text-white">
@@ -38,38 +54,38 @@ function App() {
 }
 
 // ==================== COMPONENTE CABEÇALHO ====================
-// Vamos melhorar o componente Header para ser mais mobile-friendly
-// Modificar o Header para ter um design mais compacto em dispositivos móveis
 function Header() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-zinc-800/95 backdrop-blur-sm border-b border-zinc-700">
-      <div className="container mx-auto px-4 py-2 sm:py-3 flex items-center justify-between">
+      <div className="container mx-auto px-3 py-2 sm:py-3 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img
               src="https://zonebets.site/public/uploads/57125022025223826.png"
               alt="Logo do Cassino"
-              className="mr-2 sm:w-50 sm:h-20"
+              className="h-12 sm:h-16 max-w-full object-contain"
             />
           </a>
         </div>
 
         {/* Navegação Desktop */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10">
+          <button className="px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
             Entrar
           </button>
-          <button className="px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white">
+          <button className="px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
             Cadastrar
           </button>
         </div>
 
         {/* Botão do Menu Mobile */}
         <button
-          className="md:hidden text-white p-1"
+          className="md:hidden text-white p-1 focus:outline-none focus:ring-2 focus:ring-green-500 rounded-md"
           onClick={() => setMenuMobileAberto(!menuMobileAberto)}
+          aria-label={menuMobileAberto ? "Fechar menu" : "Abrir menu"}
+          aria-expanded={menuMobileAberto}
         >
           {menuMobileAberto ? (
             <svg
@@ -82,6 +98,7 @@ function Header() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -97,6 +114,7 @@ function Header() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -106,46 +124,128 @@ function Header() {
         </button>
       </div>
 
-      {/* Menu Mobile */}
-      {menuMobileAberto && (
-        <div className="md:hidden bg-zinc-800 border-b border-zinc-700 py-3">
-          <div className="container mx-auto px-4 flex flex-col space-y-2">
-            <button className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10">
-              Entrar
-            </button>
-            <button className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white">
-              Cadastrar
-            </button>
-          </div>
+      {/* Menu Mobile - Animação de slide */}
+      <div
+        className={`md:hidden bg-zinc-800 border-b border-zinc-700 overflow-hidden transition-all duration-300 ease-in-out ${
+          menuMobileAberto
+            ? "max-h-24 py-3 opacity-100"
+            : "max-h-0 py-0 opacity-0"
+        }`}
+      >
+        <div className="container mx-auto px-4 flex flex-col space-y-2">
+          <button className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
+            Entrar
+          </button>
+          <button className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
+            Cadastrar
+          </button>
         </div>
-      )}
+      </div>
     </header>
   );
 }
 
 // ==================== COMPONENTE SEÇÃO DE BANNER ====================
-// Vamos melhorar o BannerSection para ser mais otimizado para mobile
 function BannerSection() {
   return (
-    <section className="relative h-[250px] sm:h-[300px] md:h-[400px] overflow-hidden">
-      <div className="absolute inset-0  z-10"></div>
+    <section className="relative h-[180px] sm:h-[250px] md:h-[400px] overflow-hidden">
+      <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
       <img
         src="https://zonebets.site/public/uploads/98625022025233202.png"
         alt="Banner do Cassino"
         className="absolute inset-0 w-full h-full object-cover"
+        loading="eager"
       />
     </section>
   );
 }
 
 // ==================== COMPONENTE PESQUISA E CATEGORIAS ====================
-// Vamos melhorar o SearchAndCategories para ser mais responsivo em mobile
 function SearchAndCategories() {
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [categoriaAtiva, setCategoriaAtiva] = useState("todos");
+  const categoriesRef = useRef(null);
+
+  // Função para scroll horizontal com toque
+  useEffect(() => {
+    const categoriesEl = categoriesRef.current;
+    if (!categoriesEl) return;
+
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    const handleMouseDown = (e) => {
+      isDown = true;
+      startX = e.pageX - categoriesEl.offsetLeft;
+      scrollLeft = categoriesEl.scrollLeft;
+    };
+
+    const handleMouseLeave = () => {
+      isDown = false;
+    };
+
+    const handleMouseUp = () => {
+      isDown = false;
+    };
+
+    const handleMouseMove = (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - categoriesEl.offsetLeft;
+      const walk = (x - startX) * 2; // Velocidade do scroll
+      categoriesEl.scrollLeft = scrollLeft - walk;
+    };
+
+    categoriesEl.addEventListener("mousedown", handleMouseDown);
+    categoriesEl.addEventListener("mouseleave", handleMouseLeave);
+    categoriesEl.addEventListener("mouseup", handleMouseUp);
+    categoriesEl.addEventListener("mousemove", handleMouseMove);
+
+    // Touch events
+    categoriesEl.addEventListener(
+      "touchstart",
+      (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - categoriesEl.offsetLeft;
+        scrollLeft = categoriesEl.scrollLeft;
+      },
+      { passive: true }
+    );
+
+    categoriesEl.addEventListener(
+      "touchend",
+      () => {
+        isDown = false;
+      },
+      { passive: true }
+    );
+
+    categoriesEl.addEventListener(
+      "touchmove",
+      (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - categoriesEl.offsetLeft;
+        const walk = (x - startX) * 2;
+        categoriesEl.scrollLeft = scrollLeft - walk;
+      },
+      { passive: true }
+    );
+
+    return () => {
+      categoriesEl.removeEventListener("mousedown", handleMouseDown);
+      categoriesEl.removeEventListener("mouseleave", handleMouseLeave);
+      categoriesEl.removeEventListener("mouseup", handleMouseUp);
+      categoriesEl.removeEventListener("mousemove", handleMouseMove);
+
+      categoriesEl.removeEventListener("touchstart", handleMouseDown);
+      categoriesEl.removeEventListener("touchend", handleMouseLeave);
+      categoriesEl.removeEventListener("touchmove", handleMouseMove);
+    };
+  }, []);
 
   return (
-    <section className="container mx-auto px-4 py-4 sm:py-6">
+    <section className="container mx-auto px-3 py-4 sm:py-6">
       <div className="flex flex-col gap-3 sm:gap-4">
         <div className="relative w-full">
           <svg
@@ -166,16 +266,19 @@ function SearchAndCategories() {
           <input
             type="text"
             placeholder="Pesquisar jogos..."
-            className="w-full pl-9 py-2 text-sm sm:text-base rounded-md bg-zinc-800 border border-zinc-700 text-white focus:border-green-500 focus:ring-0"
+            className="w-full pl-9 py-2.5 text-sm sm:text-base rounded-md bg-zinc-800 border border-zinc-700 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 focus:outline-none"
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}
           />
         </div>
 
-        <div className="w-full overflow-x-auto pb-1">
+        <div
+          className="w-full overflow-x-auto pb-1 scrollbar-hide"
+          ref={categoriesRef}
+        >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
             <button
-              className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+              className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 categoriaAtiva === "todos"
                   ? "bg-zinc-700 text-white"
                   : "text-zinc-400 hover:text-white"
@@ -187,7 +290,7 @@ function SearchAndCategories() {
             {categoriaJogos.map((categoria) => (
               <button
                 key={categoria.id}
-                className={`px-2 sm:px-3 py-1 sm:py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+                className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   categoriaAtiva === categoria.id
                     ? "bg-zinc-700 text-white"
                     : "text-zinc-400 hover:text-white"
@@ -205,10 +308,9 @@ function SearchAndCategories() {
 }
 
 // ==================== COMPONENTE SEÇÃO DE JOGOS ====================
-// Vamos melhorar o GameSection para ser mais compacto em mobile
 function GameSection({ titulo, jogos }) {
   return (
-    <section className="container mx-auto px-4 py-4 sm:py-6">
+    <section className="container mx-auto px-3 py-4 sm:py-6">
       <div className="flex items-center justify-between mb-3 sm:mb-4">
         <h2 className="text-xl sm:text-2xl font-bold">{titulo}</h2>
         <a
@@ -224,10 +326,11 @@ function GameSection({ titulo, jogos }) {
 }
 
 // ==================== COMPONENTE CARROSSEL DE JOGOS ====================
-// Vamos melhorar o CarrosselJogos para ser mais otimizado para mobile
 function CarrosselJogos({ jogos }) {
   const [indiceAtual, setIndiceAtual] = useState(0);
   const [itensVisiveis, setItensVisiveis] = useState(3);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const containerRef = useRef(null);
 
   // Ajusta o número de itens visíveis com base no tamanho da tela
@@ -275,17 +378,41 @@ function CarrosselJogos({ jogos }) {
     }
   }, [indiceAtual, jogos.length]);
 
+  // Funções para swipe em dispositivos móveis
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (touchStart - touchEnd > 75 && podeRolarDireita) {
+      // Swipe para a esquerda
+      handleProximo();
+    }
+
+    if (touchStart - touchEnd < -75 && podeRolarEsquerda) {
+      // Swipe para a direita
+      handleAnterior();
+    }
+  };
+
   return (
     <div className="relative group">
       <div
         ref={containerRef}
         className="flex overflow-x-auto scrollbar-hide snap-x snap-mandatory gap-3 sm:gap-4 pb-4"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
         {jogos.map((jogo) => (
           <div
             key={jogo.id}
-            className={`flex-shrink-0 snap-start bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-green-500/20 ${
+            className={`flex-shrink-0 snap-start bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-500/20 active:scale-[0.98] ${
               itensVisiveis === 1
                 ? "w-full"
                 : itensVisiveis === 2
@@ -294,11 +421,12 @@ function CarrosselJogos({ jogos }) {
             }`}
           >
             <div className="p-0 relative">
-              <div className="relative h-40 sm:h-48 w-full">
+              <div className="relative h-36 sm:h-40 md:h-48 w-full">
                 <img
                   src={jogo.imagem || "https://placehold.co/300x200"}
                   alt={jogo.titulo}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
 
@@ -321,11 +449,11 @@ function CarrosselJogos({ jogos }) {
                 </div>
               </div>
 
-              <div className="p-3 sm:p-4 text-start">
-                <h3 className="font-bold text-base sm:text-lg mb-0.5 sm:mb-1 truncate">
+              <div className="p-2.5 sm:p-3 text-start">
+                <h3 className="font-bold text-sm sm:text-base mb-0.5 truncate">
                   {jogo.titulo}
                 </h3>
-                <p className="text-zinc-400 text-xs sm:text-sm mb-2">
+                <p className="text-zinc-400 text-xs mb-2 truncate">
                   {jogo.fornecedor}
                 </p>
 
@@ -367,13 +495,13 @@ function CarrosselJogos({ jogos }) {
                       </svg>
                     ))}
                   </div>
-                  <button className="px-2 sm:px-3 py-0.5 sm:py-1 text-xs sm:text-sm rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white">
+                  <button className="px-2 py-1 text-xs rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white active:scale-95 transition-transform">
                     Jogar
                   </button>
                 </div>
 
                 {/* Informações adicionais */}
-                <div className="mt-2 pt-2 border-t border-zinc-700 grid grid-cols-2 gap-2 text-[10px] sm:text-xs text-zinc-400">
+                <div className="mt-2 pt-2 border-t border-zinc-700 grid grid-cols-2 gap-2 text-[10px] text-zinc-400">
                   <div className="flex items-center">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -423,12 +551,13 @@ function CarrosselJogos({ jogos }) {
           (_, i) => (
             <button
               key={i}
-              className={`w-2 h-2 mx-1 rounded-full ${
+              className={`w-2 h-2 mx-1 rounded-full transition-colors ${
                 i === Math.floor(indiceAtual / itensVisiveis)
                   ? "bg-green-500"
                   : "bg-zinc-600"
               }`}
               onClick={() => setIndiceAtual(i * itensVisiveis)}
+              aria-label={`Ir para página ${i + 1}`}
             />
           )
         )}
@@ -436,11 +565,14 @@ function CarrosselJogos({ jogos }) {
 
       {/* Botões de navegação (visíveis apenas em telas maiores) */}
       <button
-        className={`hidden sm:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white opacity-0 group-hover:opacity-100 transition-opacity ${
-          !podeRolarEsquerda && "opacity-0 cursor-not-allowed"
+        className={`hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white items-center justify-center ${
+          !podeRolarEsquerda
+            ? "opacity-0 cursor-not-allowed"
+            : "opacity-0 group-hover:opacity-100 transition-opacity"
         }`}
         onClick={handleAnterior}
         disabled={!podeRolarEsquerda}
+        aria-label="Anterior"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -452,17 +584,21 @@ function CarrosselJogos({ jogos }) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <polyline points="15 18 9 12 15 6"></polyline>
         </svg>
       </button>
 
       <button
-        className={`hidden sm:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white opacity-0 group-hover:opacity-100 transition-opacity ${
-          !podeRolarDireita && "opacity-0 cursor-not-allowed"
+        className={`hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white items-center justify-center ${
+          !podeRolarDireita
+            ? "opacity-0 cursor-not-allowed"
+            : "opacity-0 group-hover:opacity-100 transition-opacity"
         }`}
         onClick={handleProximo}
         disabled={!podeRolarDireita}
+        aria-label="Próximo"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -474,6 +610,7 @@ function CarrosselJogos({ jogos }) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
@@ -482,14 +619,104 @@ function CarrosselJogos({ jogos }) {
   );
 }
 
+// Vamos adicionar um componente de promoções para mobile
+function PromocoesSection() {
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const scrollRef = useRef(null);
+
+  // Funções para swipe em dispositivos móveis
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+
+    // Previne o scroll vertical durante o swipe horizontal
+    if (Math.abs(touchStart - e.targetTouches[0].clientX) > 10) {
+      e.preventDefault();
+    }
+  };
+
+  const handleTouchEnd = () => {
+    if (!scrollRef.current) return;
+
+    const scrollAmount = 280; // Largura aproximada de cada card + gap
+
+    if (touchStart - touchEnd > 75) {
+      // Swipe para a esquerda - avança
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
+    }
+
+    if (touchStart - touchEnd < -75) {
+      // Swipe para a direita - volta
+      scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <section className="container mx-auto px-3 py-4 sm:py-6">
+      <div className="flex items-center justify-between mb-3">
+        <h2 className="text-xl sm:text-2xl font-bold">Promoções</h2>
+        <a
+          href="#"
+          className="text-xs sm:text-sm text-green-500 hover:underline"
+        >
+          Ver todas
+        </a>
+      </div>
+      <div
+        className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory"
+        ref={scrollRef}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+      >
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+          <div className="relative h-24 sm:h-32">
+            <img
+              src="https://zonebets.site/public/uploads/76025022025233212.png"
+              alt="Bônus de Boas-vindas"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+          <div className="relative h-24 sm:h-32">
+            <img
+              src="https://zonebets.site/public/uploads/22025022025233219.png"
+              alt="Giros Grátis"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+          <div className="relative h-24 sm:h-32">
+            <img
+              src="https://zonebets.site/public/uploads/22025022025233219.png"
+              alt="Cashback Semanal"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ==================== COMPONENTE RODAPÉ ====================
-// Vamos melhorar o Footer para ser mais compacto em mobile
 function Footer() {
   return (
     <footer className="bg-zinc-800 border-t border-zinc-700 py-6 sm:py-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          <div className="col-span-2 sm:col-span-1">
+      <div className="container mx-auto px-3">
+        {/* Versão desktop */}
+        <div className=" sm:grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <div className="col-span-2 sm:col-span-1 text-left sm:text-left">
             <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
               Zone Bets
             </h3>
@@ -542,7 +769,7 @@ function Footer() {
               </li>
             </ul>
           </div>
-          <div className="col-span-2 sm:col-span-1">
+          <div className="col-span-2 sm:col-span-1 text-left">
             <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4">
               Jogo Responsável
             </h3>
@@ -555,6 +782,7 @@ function Footer() {
             </button>
           </div>
         </div>
+
         <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-zinc-700 text-center text-zinc-400">
           <p className="text-sm sm:text-base">
             © {new Date().getFullYear()} Zone Bets. Todos os direitos
@@ -567,53 +795,6 @@ function Footer() {
         </div>
       </div>
     </footer>
-  );
-}
-
-// Vamos adicionar um componente de promoções para mobile
-// Adicione este componente após a seção de banner e antes da seção de pesquisa
-function PromocoesSection() {
-  return (
-    <section className="container mx-auto px-4 py-4 sm:py-6">
-      <div className="flex items-center justify-between mb-3">
-        <h2 className="text-xl sm:text-2xl font-bold">Promoções</h2>
-        <a
-          href="#"
-          className="text-xs sm:text-sm text-green-500 hover:underline"
-        >
-          Ver todas
-        </a>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-        <div className="bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
-          <div className="relative h-24 sm:h-32">
-            <img
-              src="https://zonebets.site/public/uploads/76025022025233212.png"
-              alt="Bônus de Boas-vindas"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
-          <div className="relative h-24 sm:h-32">
-            <img
-              src="https://zonebets.site/public/uploads/22025022025233219.png"
-              alt="Giros Grátis"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-        <div className="hidden md:block bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
-          <div className="relative h-24 sm:h-32">
-            <img
-              src="https://zonebets.site/public/uploads/22025022025233219.png"
-              alt="Cashback Semanal"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
 

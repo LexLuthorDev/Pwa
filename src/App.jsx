@@ -1,7 +1,24 @@
-"use client"
+"use client";
 
-import { useState, useRef, useEffect } from "react"
-import "./App.css"
+import { useState, useRef, useEffect } from "react";
+import "./App.css";
+
+import {
+  AlertTriangle,
+  BookOpen,
+  Dices,
+  Facebook,
+  GamepadIcon,
+  HelpCircle,
+  Instagram,
+  Mail,
+  MessageSquare,
+  Phone,
+  Shield,
+  Twitter,
+  Users,
+  Zap,
+} from "lucide-react"
 
 // ==================== COMPONENTE APP PRINCIPAL ====================
 function App() {
@@ -33,12 +50,12 @@ function App() {
       {/* Rodapé */}
       <Footer />
     </div>
-  )
+  );
 }
 
 // ==================== COMPONENTE CABEÇALHO ====================
 function Header() {
-  const [menuMobileAberto, setMenuMobileAberto] = useState(false)
+  const [menuMobileAberto, setMenuMobileAberto] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 bg-zinc-800/95 backdrop-blur-sm border-b border-zinc-700">
@@ -110,7 +127,9 @@ function Header() {
       {/* Menu Mobile - Animação de slide */}
       <div
         className={`md:hidden bg-zinc-800 border-b border-zinc-700 overflow-hidden transition-all duration-300 ease-in-out ${
-          menuMobileAberto ? "max-h-24 py-3 opacity-100" : "max-h-0 py-0 opacity-0"
+          menuMobileAberto
+            ? "max-h-24 py-3 opacity-100"
+            : "max-h-0 py-0 opacity-0"
         }`}
       >
         <div className="container mx-auto px-4 flex flex-col space-y-2">
@@ -123,7 +142,7 @@ function Header() {
         </div>
       </div>
     </header>
-  )
+  );
 }
 
 // ==================== COMPONENTE SEÇÃO DE BANNER ====================
@@ -132,98 +151,98 @@ function BannerSection() {
     <section className="relative h-[180px] sm:h-[250px] md:h-[400px] overflow-hidden">
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
       <img
-        src="https://zonebets.site/public/uploads/98625022025233202.png"
+        src="https://placehold.co/300x200"
         alt="Banner do Cassino"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
       />
     </section>
-  )
+  );
 }
 
 // ==================== COMPONENTE PESQUISA E CATEGORIAS ====================
 function SearchAndCategories() {
-  const [termoPesquisa, setTermoPesquisa] = useState("")
-  const [categoriaAtiva, setCategoriaAtiva] = useState("todos")
-  const categoriesRef = useRef(null)
+  const [termoPesquisa, setTermoPesquisa] = useState("");
+  const [categoriaAtiva, setCategoriaAtiva] = useState("todos");
+  const categoriesRef = useRef(null);
 
   // Função para scroll horizontal com toque
   useEffect(() => {
-    const categoriesEl = categoriesRef.current
-    if (!categoriesEl) return
+    const categoriesEl = categoriesRef.current;
+    if (!categoriesEl) return;
 
-    let isDown = false
-    let startX
-    let scrollLeft
+    let isDown = false;
+    let startX;
+    let scrollLeft;
 
     const handleMouseDown = (e) => {
-      isDown = true
-      startX = e.pageX - categoriesEl.offsetLeft
-      scrollLeft = categoriesEl.scrollLeft
-    }
+      isDown = true;
+      startX = e.pageX - categoriesEl.offsetLeft;
+      scrollLeft = categoriesEl.scrollLeft;
+    };
 
     const handleMouseLeave = () => {
-      isDown = false
-    }
+      isDown = false;
+    };
 
     const handleMouseUp = () => {
-      isDown = false
-    }
+      isDown = false;
+    };
 
     const handleMouseMove = (e) => {
-      if (!isDown) return
-      e.preventDefault()
-      const x = e.pageX - categoriesEl.offsetLeft
-      const walk = (x - startX) * 2 // Velocidade do scroll
-      categoriesEl.scrollLeft = scrollLeft - walk
-    }
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - categoriesEl.offsetLeft;
+      const walk = (x - startX) * 2; // Velocidade do scroll
+      categoriesEl.scrollLeft = scrollLeft - walk;
+    };
 
-    categoriesEl.addEventListener("mousedown", handleMouseDown)
-    categoriesEl.addEventListener("mouseleave", handleMouseLeave)
-    categoriesEl.addEventListener("mouseup", handleMouseUp)
-    categoriesEl.addEventListener("mousemove", handleMouseMove)
+    categoriesEl.addEventListener("mousedown", handleMouseDown);
+    categoriesEl.addEventListener("mouseleave", handleMouseLeave);
+    categoriesEl.addEventListener("mouseup", handleMouseUp);
+    categoriesEl.addEventListener("mousemove", handleMouseMove);
 
     // Touch events
     categoriesEl.addEventListener(
       "touchstart",
       (e) => {
-        isDown = true
-        startX = e.touches[0].pageX - categoriesEl.offsetLeft
-        scrollLeft = categoriesEl.scrollLeft
+        isDown = true;
+        startX = e.touches[0].pageX - categoriesEl.offsetLeft;
+        scrollLeft = categoriesEl.scrollLeft;
       },
-      { passive: true },
-    )
+      { passive: true }
+    );
 
     categoriesEl.addEventListener(
       "touchend",
       () => {
-        isDown = false
+        isDown = false;
       },
-      { passive: true },
-    )
+      { passive: true }
+    );
 
     categoriesEl.addEventListener(
       "touchmove",
       (e) => {
-        if (!isDown) return
-        const x = e.touches[0].pageX - categoriesEl.offsetLeft
-        const walk = (x - startX) * 2
-        categoriesEl.scrollLeft = scrollLeft - walk
+        if (!isDown) return;
+        const x = e.touches[0].pageX - categoriesEl.offsetLeft;
+        const walk = (x - startX) * 2;
+        categoriesEl.scrollLeft = scrollLeft - walk;
       },
-      { passive: true },
-    )
+      { passive: true }
+    );
 
     return () => {
-      categoriesEl.removeEventListener("mousedown", handleMouseDown)
-      categoriesEl.removeEventListener("mouseleave", handleMouseLeave)
-      categoriesEl.removeEventListener("mouseup", handleMouseUp)
-      categoriesEl.removeEventListener("mousemove", handleMouseMove)
+      categoriesEl.removeEventListener("mousedown", handleMouseDown);
+      categoriesEl.removeEventListener("mouseleave", handleMouseLeave);
+      categoriesEl.removeEventListener("mouseup", handleMouseUp);
+      categoriesEl.removeEventListener("mousemove", handleMouseMove);
 
-      categoriesEl.removeEventListener("touchstart", handleMouseDown)
-      categoriesEl.removeEventListener("touchend", handleMouseLeave)
-      categoriesEl.removeEventListener("touchmove", handleMouseMove)
-    }
-  }, [])
+      categoriesEl.removeEventListener("touchstart", handleMouseDown);
+      categoriesEl.removeEventListener("touchend", handleMouseLeave);
+      categoriesEl.removeEventListener("touchmove", handleMouseMove);
+    };
+  }, []);
 
   return (
     <section className="container mx-auto px-3 py-4 sm:py-6">
@@ -253,11 +272,16 @@ function SearchAndCategories() {
           />
         </div>
 
-        <div className="w-full overflow-x-auto pb-1 scrollbar-hide" ref={categoriesRef}>
+        <div
+          className="w-full overflow-x-auto pb-1 scrollbar-hide"
+          ref={categoriesRef}
+        >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
             <button
               className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                categoriaAtiva === "todos" ? "bg-zinc-700 text-white" : "text-zinc-400 hover:text-white"
+                categoriaAtiva === "todos"
+                  ? "bg-zinc-700 text-white"
+                  : "text-zinc-400 hover:text-white"
               }`}
               onClick={() => setCategoriaAtiva("todos")}
             >
@@ -267,7 +291,9 @@ function SearchAndCategories() {
               <button
                 key={categoria.id}
                 className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                  categoriaAtiva === categoria.id ? "bg-zinc-700 text-white" : "text-zinc-400 hover:text-white"
+                  categoriaAtiva === categoria.id
+                    ? "bg-zinc-700 text-white"
+                    : "text-zinc-400 hover:text-white"
                 }`}
                 onClick={() => setCategoriaAtiva(categoria.id)}
               >
@@ -278,7 +304,7 @@ function SearchAndCategories() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ==================== COMPONENTE SEÇÃO DE JOGOS ====================
@@ -287,87 +313,91 @@ function GameSection({ titulo, jogos }) {
     <section className="container mx-auto px-3 py-4 sm:py-6">
       <div className="flex items-center justify-between mb-3 sm:mb-4">
         <h2 className="text-xl sm:text-2xl font-bold">{titulo}</h2>
-        <a href="#" className="text-xs sm:text-sm text-green-500 hover:underline">
+        <a
+          href="#"
+          className="text-xs sm:text-sm text-green-500 hover:underline"
+        >
           Ver todos
         </a>
       </div>
       <CarrosselJogos jogos={jogos} />
     </section>
-  )
+  );
 }
 
 // ==================== COMPONENTE CARROSSEL DE JOGOS ====================
 function CarrosselJogos({ jogos }) {
-  const [indiceAtual, setIndiceAtual] = useState(0)
-  const [itensVisiveis, setItensVisiveis] = useState(3)
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
-  const containerRef = useRef(null)
+  const [indiceAtual, setIndiceAtual] = useState(0);
+  const [itensVisiveis, setItensVisiveis] = useState(3);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const containerRef = useRef(null);
 
   // Ajusta o número de itens visíveis com base no tamanho da tela
   useEffect(() => {
     function atualizarTamanho() {
       if (window.innerWidth < 640) {
-        setItensVisiveis(1)
+        setItensVisiveis(1);
       } else if (window.innerWidth < 1024) {
-        setItensVisiveis(2)
+        setItensVisiveis(2);
       } else {
-        setItensVisiveis(3)
+        setItensVisiveis(3);
       }
     }
 
-    window.addEventListener("resize", atualizarTamanho)
-    atualizarTamanho()
+    window.addEventListener("resize", atualizarTamanho);
+    atualizarTamanho();
 
-    return () => window.removeEventListener("resize", atualizarTamanho)
-  }, [])
+    return () => window.removeEventListener("resize", atualizarTamanho);
+  }, []);
 
-  const podeRolarEsquerda = indiceAtual > 0
-  const podeRolarDireita = indiceAtual < jogos.length - itensVisiveis
+  const podeRolarEsquerda = indiceAtual > 0;
+  const podeRolarDireita = indiceAtual < jogos.length - itensVisiveis;
 
   const handleAnterior = () => {
     if (podeRolarEsquerda) {
-      setIndiceAtual(indiceAtual - 1)
+      setIndiceAtual(indiceAtual - 1);
     }
-  }
+  };
 
   const handleProximo = () => {
     if (podeRolarDireita) {
-      setIndiceAtual(indiceAtual + 1)
+      setIndiceAtual(indiceAtual + 1);
     }
-  }
+  };
 
   // Rola o carrossel quando o índice muda
   useEffect(() => {
     if (containerRef.current) {
-      const scrollAmount = (containerRef.current.scrollWidth / jogos.length) * indiceAtual
+      const scrollAmount =
+        (containerRef.current.scrollWidth / jogos.length) * indiceAtual;
       containerRef.current.scrollTo({
         left: scrollAmount,
         behavior: "smooth",
-      })
+      });
     }
-  }, [indiceAtual, jogos.length])
+  }, [indiceAtual, jogos.length]);
 
   // Funções para swipe em dispositivos móveis
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
+    setTouchStart(e.targetTouches[0].clientX);
+  };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX)
-  }
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
 
   const handleTouchEnd = () => {
     if (touchStart - touchEnd > 75 && podeRolarDireita) {
       // Swipe para a esquerda
-      handleProximo()
+      handleProximo();
     }
 
     if (touchStart - touchEnd < -75 && podeRolarEsquerda) {
       // Swipe para a direita
-      handleAnterior()
+      handleAnterior();
     }
-  }
+  };
 
   return (
     <div className="relative group">
@@ -386,8 +416,8 @@ function CarrosselJogos({ jogos }) {
               itensVisiveis === 1
                 ? "w-full"
                 : itensVisiveis === 2
-                  ? "w-[calc(50%-6px)] sm:w-[calc(50%-8px)]"
-                  : "w-[calc(33.333%-8px)] sm:w-[calc(33.333%-11px)]"
+                ? "w-[calc(50%-6px)] sm:w-[calc(50%-8px)]"
+                : "w-[calc(33.333%-8px)] sm:w-[calc(33.333%-11px)]"
             }`}
           >
             <div className="p-0 relative">
@@ -420,16 +450,25 @@ function CarrosselJogos({ jogos }) {
               </div>
 
               <div className="p-2.5 sm:p-3 text-start">
-                <h3 className="font-bold text-sm sm:text-base mb-0.5 truncate">{jogo.titulo}</h3>
-                <p className="text-zinc-400 text-xs mb-2 truncate">{jogo.fornecedor}</p>
+                <h3 className="font-bold text-sm sm:text-base mb-0.5 truncate">
+                  {jogo.titulo}
+                </h3>
+                <p className="text-zinc-400 text-xs mb-2 truncate">
+                  {jogo.fornecedor}
+                </p>
 
                 {/* Tags de categoria */}
                 <div className="flex flex-wrap gap-1 mb-2">
-                  {["Slots", "Cassino", "Popular"].slice(0, Math.floor(Math.random() * 3) + 1).map((tag, index) => (
-                    <span key={index} className="text-[10px] px-1.5 py-0.5 bg-zinc-700 text-zinc-300 rounded">
-                      {tag}
-                    </span>
-                  ))}
+                  {["Slots", "Cassino", "Popular"]
+                    .slice(0, Math.floor(Math.random() * 3) + 1)
+                    .map((tag, index) => (
+                      <span
+                        key={index}
+                        className="text-[10px] px-1.5 py-0.5 bg-zinc-700 text-zinc-300 rounded"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                 </div>
 
                 <div className="flex items-center justify-between">
@@ -446,7 +485,11 @@ function CarrosselJogos({ jogos }) {
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        className={i < jogo.avaliacao ? "text-green-500" : "text-zinc-600"}
+                        className={
+                          i < jogo.avaliacao
+                            ? "text-green-500"
+                            : "text-zinc-600"
+                        }
                       >
                         <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
                       </svg>
@@ -504,22 +547,28 @@ function CarrosselJogos({ jogos }) {
 
       {/* Indicadores de paginação para mobile */}
       <div className="flex justify-center mt-2 sm:hidden">
-        {Array.from({ length: Math.ceil(jogos.length / itensVisiveis) }).map((_, i) => (
-          <button
-            key={i}
-            className={`w-2 h-2 mx-1 rounded-full transition-colors ${
-              i === Math.floor(indiceAtual / itensVisiveis) ? "bg-green-500" : "bg-zinc-600"
-            }`}
-            onClick={() => setIndiceAtual(i * itensVisiveis)}
-            aria-label={`Ir para página ${i + 1}`}
-          />
-        ))}
+        {Array.from({ length: Math.ceil(jogos.length / itensVisiveis) }).map(
+          (_, i) => (
+            <button
+              key={i}
+              className={`w-2 h-2 mx-1 rounded-full transition-colors ${
+                i === Math.floor(indiceAtual / itensVisiveis)
+                  ? "bg-green-500"
+                  : "bg-zinc-600"
+              }`}
+              onClick={() => setIndiceAtual(i * itensVisiveis)}
+              aria-label={`Ir para página ${i + 1}`}
+            />
+          )
+        )}
       </div>
 
       {/* Botões de navegação (visíveis apenas em telas maiores) */}
       <button
         className={`hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white items-center justify-center ${
-          !podeRolarEsquerda ? "opacity-0 cursor-not-allowed" : "opacity-0 group-hover:opacity-100 transition-opacity"
+          !podeRolarEsquerda
+            ? "opacity-0 cursor-not-allowed"
+            : "opacity-0 group-hover:opacity-100 transition-opacity"
         }`}
         onClick={handleAnterior}
         disabled={!podeRolarEsquerda}
@@ -543,7 +592,9 @@ function CarrosselJogos({ jogos }) {
 
       <button
         className={`hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 rounded-full p-2 bg-zinc-800/80 border border-zinc-700 text-white items-center justify-center ${
-          !podeRolarDireita ? "opacity-0 cursor-not-allowed" : "opacity-0 group-hover:opacity-100 transition-opacity"
+          !podeRolarDireita
+            ? "opacity-0 cursor-not-allowed"
+            : "opacity-0 group-hover:opacity-100 transition-opacity"
         }`}
         onClick={handleProximo}
         disabled={!podeRolarDireita}
@@ -565,55 +616,58 @@ function CarrosselJogos({ jogos }) {
         </svg>
       </button>
     </div>
-  )
+  );
 }
 
 // Vamos adicionar um componente de promoções para mobile
 function PromocoesSection() {
-  const [touchStart, setTouchStart] = useState(0)
-  const [touchEnd, setTouchEnd] = useState(0)
-  const scrollRef = useRef(null)
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
+  const scrollRef = useRef(null);
 
   // Funções para swipe em dispositivos móveis
   const handleTouchStart = (e) => {
-    setTouchStart(e.targetTouches[0].clientX)
-  }
+    setTouchStart(e.targetTouches[0].clientX);
+  };
 
   const handleTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX)
+    setTouchEnd(e.targetTouches[0].clientX);
 
     // Previne o scroll vertical durante o swipe horizontal
     if (Math.abs(touchStart - e.targetTouches[0].clientX) > 10) {
-      e.preventDefault()
+      e.preventDefault();
     }
-  }
+  };
 
   const handleTouchEnd = () => {
-    if (!scrollRef.current) return
+    if (!scrollRef.current) return;
 
-    const scrollAmount = 280 // Largura aproximada de cada card + gap
+    const scrollAmount = 280; // Largura aproximada de cada card + gap
 
     if (touchStart - touchEnd > 75) {
       // Swipe para a esquerda - avança
-      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" })
+      scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
 
     if (touchStart - touchEnd < -75) {
       // Swipe para a direita - volta
-      scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+      scrollRef.current.scrollBy({ left: -scrollAmount, behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <section className="container mx-auto px-3 py-4 sm:py-6">
       <div className="flex items-center justify-between mb-3">
         <h2 className="text-xl sm:text-2xl font-bold">Promoções</h2>
-        <a href="#" className="text-xs sm:text-sm text-green-500 hover:underline">
+        <a
+          href="#"
+          className="text-xs sm:text-sm text-green-500 hover:underline"
+        >
           Ver todas
         </a>
       </div>
       <div
-        className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory"
+        className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-700"
         ref={scrollRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -622,8 +676,9 @@ function PromocoesSection() {
       >
         <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
-              src="https://zonebets.site/public/uploads/76025022025233212.png"
+              src="https://placehold.co/300x200"
               alt="Bônus de Boas-vindas"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -632,8 +687,9 @@ function PromocoesSection() {
         </div>
         <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
-              src="https://zonebets.site/public/uploads/22025022025233219.png"
+              src="https://placehold.co/300x200"
               alt="Giros Grátis"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -642,8 +698,9 @@ function PromocoesSection() {
         </div>
         <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
+            <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
-              src="https://zonebets.site/public/uploads/22025022025233219.png"
+              src="https://placehold.co/300x200"
               alt="Cashback Semanal"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -652,194 +709,114 @@ function PromocoesSection() {
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 // ==================== COMPONENTE RODAPÉ ====================
 function Footer() {
-  const [expandedSection, setExpandedSection] = useState(null)
-
-  const toggleSection = (section) => {
-    if (expandedSection === section) {
-      setExpandedSection(null)
-    } else {
-      setExpandedSection(section)
-    }
-  }
-
   return (
     <footer className="bg-zinc-800 border-t border-zinc-700 py-6 sm:py-8">
       <div className="container mx-auto px-3">
-        {/* Versão mobile com acordeão */}
-        <div className="sm:hidden space-y-2">
-          <div className="border-b border-zinc-700 pb-4">
-            <h3 className="text-lg font-bold mb-2">Zone Bets</h3>
-            <p className="text-zinc-400 text-sm">
-              A melhor experiência de cassino online com uma grande variedade de jogos e bônus emocionantes.
-            </p>
-          </div>
-
-          <div className="border-b border-zinc-700">
-            <button
-              className="flex items-center justify-between w-full py-3"
-              onClick={() => toggleSection("jogos")}
-              aria-expanded={expandedSection === "jogos"}
-            >
-              <h3 className="text-base font-bold">Jogos</h3>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`transition-transform ${expandedSection === "jogos" ? "rotate-180" : ""}`}
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSection === "jogos" ? "max-h-40 pb-3" : "max-h-0"
-              }`}
-            >
-              <ul className="space-y-2 text-zinc-400 text-sm">
-                {categoriaJogos.slice(0, 4).map((categoria) => (
-                  <li key={categoria.id}>
-                    <a href={`/jogos/${categoria.id}`} className="hover:text-green-500">
-                      {categoria.nome}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-b border-zinc-700">
-            <button
-              className="flex items-center justify-between w-full py-3"
-              onClick={() => toggleSection("suporte")}
-              aria-expanded={expandedSection === "suporte"}
-            >
-              <h3 className="text-base font-bold">Suporte</h3>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                className={`transition-transform ${expandedSection === "suporte" ? "rotate-180" : ""}`}
-              >
-                <polyline points="6 9 12 15 18 9"></polyline>
-              </svg>
-            </button>
-            <div
-              className={`overflow-hidden transition-all duration-300 ${
-                expandedSection === "suporte" ? "max-h-40 pb-3" : "max-h-0"
-              }`}
-            >
-              <ul className="space-y-2 text-zinc-400 text-sm">
-                <li>
-                  <a href="/faq" className="hover:text-green-500">
-                    Perguntas Frequentes
-                  </a>
-                </li>
-                <li>
-                  <a href="/contato" className="hover:text-green-500">
-                    Fale Conosco
-                  </a>
-                </li>
-                <li>
-                  <a href="/termos" className="hover:text-green-500">
-                    Termos e Condições
-                  </a>
-                </li>
-                <li>
-                  <a href="/privacidade" className="hover:text-green-500">
-                    Política de Privacidade
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="pt-3">
-            <h3 className="text-base font-bold mb-2">Jogo Responsável</h3>
-            <p className="text-zinc-400 text-sm mb-3">
-              Promovemos o jogo responsável. Por favor, jogue com responsabilidade e estabeleça limites para si mesmo.
-            </p>
-            <button className="px-3 py-1.5 text-sm rounded-md border border-green-500 text-green-500 hover:bg-green-500/10">
-              Auto-Exclusão
-            </button>
-          </div>
-        </div>
-
         {/* Versão desktop */}
-        <div className="hidden sm:grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          <div className="col-span-2 sm:col-span-1">
-            <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">Zone Bets</h3>
+        <div className="sm:grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+          <div className="col-span-2 sm:col-span-1 text-left sm:text-left mb-6 sm:mb-0">
+            <h3 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4 flex items-center">
+              <Zap className="w-5 h-5 mr-2 text-green-500" />
+              Zone Bets
+            </h3>
             <p className="text-zinc-400 text-sm sm:text-base">
               A melhor experiência de cassino online com uma grande variedade de jogos e bônus emocionantes.
             </p>
+
+            {/* Redes sociais */}
+            <div className="mt-4 flex space-x-4">
+              <a href="#" className="text-zinc-400 hover:text-green-500 transition-colors">
+                <Facebook className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-zinc-400 hover:text-green-500 transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-zinc-400 hover:text-green-500 transition-colors">
+                <Twitter className="w-5 h-5" />
+              </a>
+            </div>
           </div>
-          <div>
-            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4">Jogos</h3>
+
+          <div className="mb-6 sm:mb-0">
+            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4 flex items-center">
+              <GamepadIcon className="w-4 h-4 mr-2 text-green-500" />
+              Jogos
+            </h3>
             <ul className="space-y-1 sm:space-y-2 text-zinc-400 text-sm sm:text-base">
               {categoriaJogos.slice(0, 4).map((categoria) => (
                 <li key={categoria.id}>
-                  <a href={`/jogos/${categoria.id}`} className="hover:text-green-500">
+                  <a href={`/jogos/${categoria.id}`} className="hover:text-green-500 flex items-center">
+                    <Dices className="w-3.5 h-3.5 mr-2 opacity-70" />
                     {categoria.nome}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
-            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4">Suporte</h3>
+
+          <div className="mb-6 sm:mb-0">
+            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4 flex items-center">
+              <HelpCircle className="w-4 h-4 mr-2 text-green-500" />
+              Suporte
+            </h3>
             <ul className="space-y-1 sm:space-y-2 text-zinc-400 text-sm sm:text-base">
               <li>
-                <a href="/faq" className="hover:text-green-500">
+                <a href="/faq" className="hover:text-green-500 flex items-center">
+                  <MessageSquare className="w-3.5 h-3.5 mr-2 opacity-70" />
                   Perguntas Frequentes
                 </a>
               </li>
               <li>
-                <a href="/contato" className="hover:text-green-500">
+                <a href="/contato" className="hover:text-green-500 flex items-center">
+                  <Mail className="w-3.5 h-3.5 mr-2 opacity-70" />
                   Fale Conosco
                 </a>
               </li>
               <li>
-                <a href="/termos" className="hover:text-green-500">
+                <a href="/termos" className="hover:text-green-500 flex items-center">
+                  <BookOpen className="w-3.5 h-3.5 mr-2 opacity-70" />
                   Termos e Condições
                 </a>
               </li>
               <li>
-                <a href="/privacidade" className="hover:text-green-500">
+                <a href="/privacidade" className="hover:text-green-500 flex items-center">
+                  <Shield className="w-3.5 h-3.5 mr-2 opacity-70" />
                   Política de Privacidade
                 </a>
               </li>
             </ul>
           </div>
-          <div className="col-span-2 sm:col-span-1">
-            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4">Jogo Responsável</h3>
+
+          <div className="col-span-2 sm:col-span-1 text-left">
+            <h3 className="text-base sm:text-lg font-bold mb-2 sm:mb-4 flex items-center">
+              <AlertTriangle className="w-4 h-4 mr-2 text-green-500" />
+              Jogo Responsável
+            </h3>
             <p className="text-zinc-400 text-sm sm:text-base mb-3 sm:mb-4">
               Promovemos o jogo responsável. Por favor, jogue com responsabilidade e estabeleça limites para si mesmo.
             </p>
-            <button className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border border-green-500 text-green-500 hover:bg-green-500/10">
+            <button className="px-3 sm:px-4 py-1.5 sm:py-2 text-sm sm:text-base rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 flex items-center justify-center">
+              <Users className="w-4 h-4 mr-2" />
               Auto-Exclusão
             </button>
+
+            {/* Contato rápido */}
+            <div className="mt-4 flex items-center text-zinc-400 text-sm">
+              <Phone className="w-4 h-4 mr-2" />
+              <span>Suporte: (11) 9999-9999</span>
+            </div>
           </div>
         </div>
 
         <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-zinc-700 text-center text-zinc-400">
           <p className="text-sm sm:text-base">© {new Date().getFullYear()} Zone Bets. Todos os direitos reservados.</p>
-          <p className="mt-1 sm:mt-2 text-xs sm:text-sm">
+          <p className="mt-1 sm:mt-2 text-xs sm:text-sm flex items-center justify-center">
+            <AlertTriangle className="w-3.5 h-3.5 mr-1.5 text-yellow-500" />
             Este site é destinado a maiores de 18 anos. Jogue com responsabilidade.
           </p>
         </div>
@@ -858,7 +835,7 @@ const categoriaJogos = [
   { id: "esportes", nome: "Apostas Esportivas" },
   { id: "poker", nome: "Poker" },
   { id: "jackpot", nome: "Jackpots" },
-]
+];
 
 // Jogos em destaque
 const jogosDestaque = [
@@ -907,7 +884,7 @@ const jogosDestaque = [
     fornecedor: "Evolution Gaming",
     avaliacao: 4.7,
   },
-]
+];
 
 // Jogos populares
 const jogosPopulares = [
@@ -956,7 +933,7 @@ const jogosPopulares = [
     fornecedor: "Pragmatic Play",
     avaliacao: 4.5,
   },
-]
+];
 
 // Jogos novos
 const jogosNovos = [
@@ -1008,6 +985,6 @@ const jogosNovos = [
     avaliacao: 4.3,
     novo: true,
   },
-]
+];
 
-export default App
+export default App;
