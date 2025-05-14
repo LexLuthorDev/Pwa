@@ -9,7 +9,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       strategies: "generateSW",
       workbox: {
-        importScripts: ["custom-sw-push-handler.js"],
+        importScripts: ["sw.js"],
       },
       
       manifest: {
