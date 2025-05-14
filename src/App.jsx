@@ -20,7 +20,10 @@ function App() {
 
       // 2. Busca chave pública do backend
       const res = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey"
+        "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
+        {
+          method: "POST",
+        }
       );
       const data = await res.json();
 
