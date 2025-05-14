@@ -19,7 +19,7 @@ function App() {
       const reg = await navigator.serviceWorker.register("/sw.js");
       // 2. Busca chave pública do backend
       const res = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey",
+        "https://e885-45-160-89-106.ngrok-free.app/vapidPublicKey",
         {
           method: "POST",
           body: JSON.stringify({}),
@@ -39,7 +39,7 @@ function App() {
 
       // 4. Envia subscription ao backend
       const resSubscription = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/subscribe",
+        "https://e885-45-160-89-106.ngrok-free.app/subscribe",
         {
           method: "POST",
           body: JSON.stringify(subscription),
@@ -62,7 +62,7 @@ function App() {
   const sendTestNotification = async () => {
     try {
       const res = await fetch(
-        "https://f334-45-160-89-106.ngrok-free.app/send-notification",
+        "https://e885-45-160-89-106.ngrok-free.app/send-notification",
         {
           method: "POST",
           headers: {
