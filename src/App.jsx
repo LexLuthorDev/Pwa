@@ -19,7 +19,9 @@ function App() {
       const reg = await navigator.serviceWorker.register("/sw.js");
 
       // 2. Busca chave pública do backend
-      const res = await fetch("https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey");
+      const res = await fetch(
+        "https://f334-45-160-89-106.ngrok-free.app/vapidPublicKey"
+      );
       const data = await res.json();
 
       const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
@@ -50,7 +52,9 @@ function App() {
   // Util para converter a chave VAPID
   function urlBase64ToUint8Array(base64String) {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
-    const base64 = (base64String + padding).replace(/\-/g, "+").replace(/_/g, "/");
+    const base64 = (base64String + padding)
+      .replace(/\-/g, "+")
+      .replace(/_/g, "/");
 
     const rawData = atob(base64);
     const outputArray = new Uint8Array(rawData.length);
@@ -63,29 +67,12 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={appLogo} className="logo" alt="frontend logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>frontend</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
         <button onClick={subscribeToPush} disabled={subscribed}>
           {subscribed ? "Inscrito ✅" : "Ativar Notificações 🔔"}
         </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+
       <PWABadge />
     </>
   );
