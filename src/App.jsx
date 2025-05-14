@@ -27,6 +27,8 @@ function App() {
       );
       const data = await res.json();
 
+      console.log("Chave VAPID:", data);
+
       const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
 
       // 3. Realiza inscrição no push
