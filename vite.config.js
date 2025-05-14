@@ -24,12 +24,12 @@ export default defineConfig({
           {
             src: "icon_144.png",
             sizes: "144x144",
-            type: "image/svg",
+            type: "image/png",
           },
           {
             src: "icon_512.png",
             sizes: "512x512",
-            type: "image/svg",
+            type: "image/png",
           },
         ],
       },
