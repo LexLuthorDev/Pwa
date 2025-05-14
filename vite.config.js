@@ -7,17 +7,13 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: "autoUpdate",
-      injectRegister: true,
-
-      // 🔧 usar seu SW customizado
       strategies: "injectManifest",
       srcDir: "src",
-      filename: "sw.js",
+      filename: "sw.js", // nome do arquivo final no dist/
       injectManifest: {
-        swSrc: "src/sw.js",
-        swDest: "sw.js",
+        swSrc: "src/sw.js", // caminho real no projeto
+        swDest: "sw.js",    // nome final gerado (acessível via /sw.js)
       },
-
       manifest: {
         name: "frontend",
         short_name: "frontend",
@@ -36,7 +32,6 @@ export default defineConfig({
           },
         ],
       },
-
       devOptions: {
         enabled: false,
         navigateFallback: "index.html",

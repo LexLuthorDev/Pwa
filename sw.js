@@ -1,5 +1,5 @@
 // public/sw.js
-self.__WB_MANIFEST;
+[{"revision":null,"url":"assets/index-B9l3WV8N.js"},{"revision":null,"url":"assets/index-DyBGCjdk.css"},{"revision":null,"url":"assets/workbox-window.prod.es5-B9K5rw8f.js"},{"revision":"fdf7e8038b874c5ae7e39ddbff13c89d","url":"index.html"},{"revision":"865ed3f77b35763ef379af97747a9164","url":"sw.js"},{"revision":"7bc53385cd0162f24d614ebf4a5380aa","url":"icon_144.png"},{"revision":"9f0542a57715dd3f4ab110c982edc65a","url":"icon_512.png"},{"revision":"6686a89d7a002e4ce69cfc663f900b23","url":"manifest.webmanifest"}];
 
 self.addEventListener("push", (event) => {
 

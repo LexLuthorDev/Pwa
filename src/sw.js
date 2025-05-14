@@ -1,4 +1,5 @@
 // public/sw.js
+self.__WB_MANIFEST;
 
 self.addEventListener("push", (event) => {
 
