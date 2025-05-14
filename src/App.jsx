@@ -54,6 +54,35 @@ function App() {
     }
   };
 
+  const sendTestNotification = async () => {
+    try {
+      const res = await fetch(
+        "https://f334-45-160-89-106.ngrok-free.app/sendNotification",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            payload: {
+              title: "🚀 Notificação de Teste",
+              body: "Você recebeu essa notificação direto do front!",
+              icon: "/icon_144.png",
+              url: "https://pwa-dun-sigma.vercel.app/",
+            },
+          }),
+        }
+      );
+
+      const data = await res.json();
+      console.log("Resposta do servidor:", data);
+      alert("Notificação enviada!");
+    } catch (err) {
+      console.error("Erro ao enviar notificação:", err);
+      alert("Falha ao enviar notificação. Veja o console.");
+    }
+  };
+
   // Util para converter a chave VAPID
   function urlBase64ToUint8Array(base64String) {
     const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -77,7 +106,10 @@ function App() {
           {subscribed ? "Inscrito ✅" : "Ativar Notificações 🔔"}
         </button>
       </div>
-
+      <button onClick={sendTestNotification}>
+        Enviar Notificação de Teste 🚀
+      </button>
+      F
       <PWABadge />
     </>
   );
