@@ -31,7 +31,7 @@ function App() {
       });
 
       // 4. Envia subscription ao backend
-      await fetch("http://localhost:4000/subscribe", {
+      await fetch("https://f334-45-160-89-106.ngrok-free.app/subscribe", {
         method: "POST",
         body: JSON.stringify(subscription),
         headers: {
