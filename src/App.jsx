@@ -68,7 +68,7 @@ function App() {
               title: "🚀 Notificação de Teste",
               body: "Você recebeu essa notificação direto do front!",
               icon: "/icon_144.png",
-              url: "https://pwa-dun-sigma.vercel.app/",
+              url: "https://pwa-dun-sigma.vercel.app",
             },
           }),
         }
