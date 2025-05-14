@@ -1,6 +1,8 @@
 // public/sw.js
 
 self.addEventListener("push", (event) => {
+
+  console.log("[SW] Push listener ativado");
   if (!event.data) {
     console.warn("[SW] Push recebido sem payload!");
     return;
