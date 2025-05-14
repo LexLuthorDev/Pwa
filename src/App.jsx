@@ -15,29 +15,36 @@ function App() {
         return;
       }
 
-      // 1. Registra o Service Worker
-      const reg = await navigator.serviceWorker.register("/sw.js");
-      // 2. Busca chave pública do backend
+      // ✅ NÃO registre manualmente o SW — apenas espere ele estar pronto
+      const reg = await navigator.serviceWorker.ready;
+      console.log("Service Worker pronto:", reg);
+
+      // 🔑 Busca chave pública do backend
       const res = await fetch(
         "https://e885-45-160-89-106.ngrok-free.app/vapidPublicKey",
         {
           method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
           body: JSON.stringify({}),
         }
       );
-      const data = await res.json();
 
-      console.log("Chave VAPID:", data);
+      const data = await res.json();
+      console.log("Chave VAPID recebida:", data);
 
       const convertedVapidKey = urlBase64ToUint8Array(data.publicKey);
 
-      // 3. Realiza inscrição no push
+      // ✅ Inscreve o push com a chave VAPID
       const subscription = await reg.pushManager.subscribe({
         userVisibleOnly: true,
         applicationServerKey: convertedVapidKey,
       });
 
-      // 4. Envia subscription ao backend
+      console.log("Inscrição criada:", subscription);
+
+      // Envia para o backend
       const resSubscription = await fetch(
         "https://e885-45-160-89-106.ngrok-free.app/subscribe",
         {
