@@ -875,7 +875,7 @@ const jogosDestaque = [
   {
     id: "jogo1",
     titulo: "Tigre da Fortuna",
-    imagem: "https://placehold.co/300x200",
+    imagem: "https://i.imgur.com/lCMY74B.png",
     fornecedor: "PG Soft",
     avaliacao: 4.8,
     quente: true,
