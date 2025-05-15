@@ -210,7 +210,7 @@ function SearchAndCategories() {
         startX = e.touches[0].pageX - categoriesEl.offsetLeft;
         scrollLeft = categoriesEl.scrollLeft;
       },
-      { passive: true }
+      { passive: false }
     );
 
     categoriesEl.addEventListener(
@@ -218,7 +218,7 @@ function SearchAndCategories() {
       () => {
         isDown = false;
       },
-      { passive: true }
+      { passive: false }
     );
 
     categoriesEl.addEventListener(
@@ -229,7 +229,7 @@ function SearchAndCategories() {
         const walk = (x - startX) * 2;
         categoriesEl.scrollLeft = scrollLeft - walk;
       },
-      { passive: true }
+      { passive: false }
     );
 
     return () => {
@@ -667,14 +667,14 @@ function PromocoesSection() {
         </a>
       </div>
       <div
-        className="flex overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-700"
+        className="flex justify-between overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-700"
         ref={scrollRef}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[32.3%] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
@@ -685,7 +685,7 @@ function PromocoesSection() {
             />
           </div>
         </div>
-        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[32.3%] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
@@ -696,7 +696,7 @@ function PromocoesSection() {
             />
           </div>
         </div>
-        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[360px] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
+        <div className="flex-shrink-0 snap-start w-[280px] sm:w-[320px] md:w-[32.3%] bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden">
           <div className="relative h-24 sm:h-32">
             <div className="absolute inset-0 z-10 bg-gradient-to-b from-transparent to-zinc-900/70"></div>
             <img
