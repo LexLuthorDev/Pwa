@@ -11,9 +11,13 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.6",
+    "canvas-confetti": "^1.9.3",
     "lucide-react": "^0.510.0",
+    "notyf": "^3.10.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-router-dom": "^7.6.0",
+    "socket.io-client": "^4.8.1",
     "tailwindcss": "^4.1.6"
   },
   "devDependencies": {

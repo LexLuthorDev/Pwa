@@ -1,11 +1,9 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import "./App.css";
+import "../../App.css";
+import { useNavigate } from "react-router-dom";
 
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import PageHome from "./pages/home/page";
-import DoubleGame from "./pages/games/double/page";
 import {
   AlertTriangle,
   BookOpen,
@@ -22,18 +20,35 @@ import {
   Users,
   Zap,
 } from "lucide-react";
-
-// ==================== COMPONENTE APP PRINCIPAL ====================
-function App() {
+export default function PageHome() {
   return (
-    <>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<PageHome />} />
-          <Route path="/games/doublex" element={<DoubleGame />} />
-        </Routes>
-      </BrowserRouter>
-    </>
+    <div className="min-h-screen flex flex-col bg-zinc-900 text-white">
+      {/* Cabeçalho */}
+      <Header />
+
+      <main className="flex-1">
+        {/* Seção de Banner */}
+        <BannerSection />
+
+        {/* Seção de Promoções */}
+        <PromocoesSection />
+
+        {/* Pesquisa e Categorias */}
+        <SearchAndCategories />
+
+        {/* Jogos em Destaque */}
+        <GameSection titulo="Jogos em Destaque" jogos={jogosDestaque} />
+
+        {/* Jogos Populares */}
+        <GameSection titulo="Mais Jogados" jogos={jogosPopulares} />
+
+        {/* Jogos Novos */}
+        <GameSection titulo="Lançamentos" jogos={jogosNovos} />
+      </main>
+
+      {/* Rodapé */}
+      <Footer />
+    </div>
   );
 }
 
@@ -56,10 +71,10 @@ function Header() {
 
         {/* Navegação Desktop */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
+          <button className="px-4 py-2 rounded-[8px] border border-green-500 text-green-500 hover:bg-green-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]">
             Entrar
           </button>
-          <button className="px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
+          <button className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200">
             Cadastrar
           </button>
         </div>
@@ -317,6 +332,8 @@ function CarrosselJogos({ jogos }) {
   const [touchEnd, setTouchEnd] = useState(0);
   const containerRef = useRef(null);
 
+  const navigate = useNavigate();
+
   // Ajusta o número de itens visíveis com base no tamanho da tela
   useEffect(() => {
     function atualizarTamanho() {
@@ -479,7 +496,10 @@ function CarrosselJogos({ jogos }) {
                       </svg>
                     ))}
                   </div>
-                  <button className="px-2 py-1 text-xs rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white active:scale-95 transition-transform">
+                  <button
+                    onClick={() => navigate(`/games/${jogo.nome}`)}
+                    className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200"
+                  >
                     Jogar
                   </button>
                 </div>
@@ -955,10 +975,10 @@ const jogosPopulares = [
 // Jogos novos
 const jogosNovos = [
   {
-    id: "doublex",
+    id: "1",
+    nome: "doublex",
     titulo: "Double X",
-    imagem:
-      "https://sdmntprcentralus.oaiusercontent.com/files/00000000-f748-61f5-83a8-3d81b5c53ff7/raw?se=2025-05-20T01%3A48%3A10Z&sp=r&sv=2024-08-04&sr=b&scid=842328d4-d835-5f04-8f2b-7466441eead1&skoid=c953efd6-2ae8-41b4-a6d6-34b1475ac07c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-19T23%3A58%3A04Z&ske=2025-05-20T23%3A58%3A04Z&sks=b&skv=2024-08-04&sig=kN3JMB7URnU0SVgISshEgmXQymSVdpzPF321y7dIC5A%3D",
+    imagem: "/img-doublex.png",
     fornecedor: "Lex Labs Games",
     avaliacao: 4.8,
     novo: true,
@@ -1004,5 +1024,3 @@ const jogosNovos = [
     novo: true,
   },
 ];
-
-export default App;
