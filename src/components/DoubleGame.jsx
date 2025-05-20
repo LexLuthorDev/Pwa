@@ -238,7 +238,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
         cor: color,
         valor: Number.parseFloat(valorAposta),
         saldo_usuario: saldoUsuario,
-        pool_lucro_cassino: 0,
+        pool_lucro_cassino: 100,
         saldo_cassino: 0,
         lucro_desejado_cassino: 0.5,
         cassino_url_callback: "https://cb17-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
@@ -279,7 +279,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
   return (
     <>
-      <div className="max-w-4xl mx-auto  flex justify-center items-center">
+      <div className="max-w-full mx-auto  flex justify-center items-center">
         
         <div className="flex flex-col md:flex-col gap-2  justify-center">
           {/* Home navigation button */}
