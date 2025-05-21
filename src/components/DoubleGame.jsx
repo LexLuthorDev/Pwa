@@ -279,9 +279,9 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
   return (
     <>
-      <div className="max-w-full mx-auto  flex justify-center items-center">
+      <div className="max-w-full  flex justify-center items-center ">
         
-        <div className="flex flex-col md:flex-col gap-2  justify-center">
+        <div className="flex flex-col md:flex-col gap-2  justify-center w-full">
           {/* Home navigation button */}
           <div className="max-w-full w-full mx-auto flex justify-between items-center">
             <button
