@@ -4,7 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { Notyf } from "notyf";
 import "notyf/notyf.min.css";
-import { ChevronUp, ChevronDown, History, Award, Home, Bitcoin } from "lucide-react";
+import {
+  ChevronUp,
+  ChevronDown,
+  History,
+  Award,
+  Home,
+  Bitcoin,
+} from "lucide-react";
 import confetti from "canvas-confetti";
 import { useNavigate } from "react-router-dom"; // ✅ correto para React Router DOM
 
@@ -77,9 +84,8 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
   const [lastWinner, setLastWinner] = useState(null);
   const [valorGanho, setValorGanho] = useState(null);
   const [valorPerdido, setValorPerdido] = useState(null);
-  const [saldoUsuario, setSaldoUsuario] = useState(10.50);
-
-  
+  const [saldoUsuario, setSaldoUsuario] = useState(10.5);
+  const [isBettingDisabled, setIsBettingDisabled] = useState(false);
 
   const navigate = useNavigate();
 
@@ -125,6 +131,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
       console.log("🎲 Roulette received:", roleta);
       setRoleta(roleta);
       setIndexVencedor(null);
+      setIsBettingDisabled(false); // ✅ Libera apostas somente após nova roleta
     });
 
     socket.on(
@@ -184,6 +191,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
           // Aguarda fim da notificação antes de reiniciar a próxima rodada
           setTimeout(() => {
             socket.emit("double:start", { autorizacao_cassino, id_jogador });
+            
           }, 4000);
         }, 2500); // tempo da animação da roleta
       }
@@ -222,16 +230,17 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
   };
 
   const placeBet = (color) => {
+    if (isBettingDisabled) return;
     if (!valorAposta || valorAposta <= 0) {
       return notyf.error("Please enter a valid amount");
     }
+
+    setIsBettingDisabled(true); // 🔒 Desativa os botões
 
     console.log("📤 Sending bet:", { color, amount: valorAposta });
 
     // Tocar som quando a animação da roleta começar
     playSound(rouletteSpinSound); // Toca o som da roleta girando
-
-    
 
     setTimeout(() => {
       socketRef.current.emit("double:bet", {
@@ -241,7 +250,8 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
         pool_lucro_cassino: 100,
         saldo_cassino: 0,
         lucro_desejado_cassino: 0.5,
-        cassino_url_callback: "https://3e33-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
+        cassino_url_callback:
+          "https://3e33-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
       });
     }, 300);
   };
@@ -280,7 +290,6 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
   return (
     <>
       <div className="max-w-full  flex justify-center items-center ">
-        
         <div className="flex flex-col md:flex-col gap-2  justify-center w-full">
           {/* Home navigation button */}
           <div className="max-w-full w-full mx-auto flex justify-between items-center">
@@ -294,11 +303,13 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
             <span className="flex items-center gap-2 bg-gray-700 hover:bg-gray-600 text-white px-4 py-2 rounded-lg transition-colors">
               <Bitcoin className="h-5 w-5" />
-              <span>{saldoUsuario.toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                minimumFractionDigits: 2,
-              })}</span>
+              <span>
+                {saldoUsuario.toLocaleString("pt-BR", {
+                  style: "currency",
+                  currency: "BRL",
+                  minimumFractionDigits: 2,
+                })}
+              </span>
             </span>
           </div>
           {/* Game section */}
@@ -433,21 +444,38 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
                 <div className="col-span-1 md:col-span-2 grid grid-cols-3 gap-3">
                   <button
                     onClick={() => placeBet("red")}
-                    className="bg-gradient-to-b from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105"
+                    disabled={isBettingDisabled}
+                    className={`bg-gradient-to-b from-red-500 to-red-700 hover:from-red-600 hover:to-red-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105 ${
+                      isBettingDisabled
+                        ? "opacity-50 cursor-not-allowed pointer-events-none"
+                        : ""
+                    }`}
                   >
                     <span className="text-2xl font-bold">2x</span>
                     <span className="text-sm mt-1">Vermelho</span>
                   </button>
+
                   <button
                     onClick={() => placeBet("green")}
-                    className="bg-gradient-to-b from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105"
+                    disabled={isBettingDisabled}
+                    className={`bg-gradient-to-b from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105 ${
+                      isBettingDisabled
+                        ? "opacity-50 cursor-not-allowed pointer-events-none"
+                        : ""
+                    }`}
                   >
                     <span className="text-2xl font-bold">14x</span>
                     <span className="text-sm mt-1">Verde</span>
                   </button>
+
                   <button
                     onClick={() => placeBet("black")}
-                    className="bg-gradient-to-b from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105"
+                    disabled={isBettingDisabled}
+                    className={`bg-gradient-to-b from-gray-700 to-gray-900 hover:from-gray-600 hover:to-gray-800 rounded-lg p-4 flex flex-col items-center justify-center transition-all transform hover:scale-105 ${
+                      isBettingDisabled
+                        ? "opacity-50 cursor-not-allowed pointer-events-none"
+                        : ""
+                    }`}
                   >
                     <span className="text-2xl font-bold">2x</span>
                     <span className="text-sm mt-1">Preto</span>
