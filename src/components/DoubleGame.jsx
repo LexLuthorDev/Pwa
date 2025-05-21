@@ -71,7 +71,7 @@ const notyf = new Notyf({
   ],
 });
 
-export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
+export default function DoubleGame({ token_jogador }) {
   const entriesRef = useRef(null);
   const socketRef = useRef(null);
   const [valorAposta, setValorAposta] = useState(1);
@@ -84,7 +84,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
   const [lastWinner, setLastWinner] = useState(null);
   const [valorGanho, setValorGanho] = useState(null);
   const [valorPerdido, setValorPerdido] = useState(null);
-  const [saldoUsuario, setSaldoUsuario] = useState(10.5);
+  const [saldoUsuario, setSaldoUsuario] = useState(100);
   const [isBettingDisabled, setIsBettingDisabled] = useState(false);
 
   const navigate = useNavigate();
@@ -118,7 +118,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
     socket.on("connect", () => {
       console.log("✅ Connected to server:", socket.id);
-      socket.emit("double:start", { autorizacao_cassino, id_jogador });
+      socket.emit("double:start", { token_jogador });
       setIsLoading(false);
     });
 
@@ -136,8 +136,8 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
     socket.on(
       "double:result",
-      ({ ganhou, cor, payout, roleta, index, valorAposta }) => {
-        console.log("📬 Result:", { ganhou, cor, payout, index });
+      ({ ganhou, cor, payout, roleta, index, valorAposta, saldo_usuario }) => {
+        console.log("📬 Result:", { ganhou, cor, payout, index, saldo_usuario });
 
         // Define os dados da roleta e o index vencedor para alinhar visualmente
         setRoleta(roleta);
@@ -155,6 +155,8 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
           // Toca o som de resultado
           if (ganhou) {
+            // Atualiza saldo adicionando o valor ganho
+            setSaldoUsuario(parseFloat(saldo_usuario));
             setValorGanho(
               payout.toLocaleString("pt-BR", {
                 style: "currency",
@@ -168,6 +170,8 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
             showConfetti(); // Dispara o efeito de confetes
             playSound(winSound); // habilite se quiser som de vitória
           } else {
+            // Atualiza saldo subtraindo o valor da aposta
+            setSaldoUsuario(parseFloat(saldo_usuario));
             setValorPerdido(
               Number(valorAposta).toLocaleString("pt-BR", {
                 style: "currency",
@@ -190,8 +194,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
           // Aguarda fim da notificação antes de reiniciar a próxima rodada
           setTimeout(() => {
-            socket.emit("double:start", { autorizacao_cassino, id_jogador });
-            
+            socket.emit("double:start", { token_jogador });
           }, 4000);
         }, 2500); // tempo da animação da roleta
       }
@@ -201,7 +204,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
       console.log("🔌 Disconnecting socket...");
       socket.disconnect();
     };
-  }, [autorizacao_cassino, id_jogador]);
+  }, [token_jogador]);
 
   useEffect(() => {
     if (indexVencedor !== null) alignCenter(indexVencedor);
@@ -230,6 +233,10 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
   };
 
   const placeBet = (color) => {
+    // validar se o usuario tem saldo suficiente
+    if (saldoUsuario < valorAposta) {
+      return notyf.error("😔😔 Saldo insuficiente");
+    }
     if (isBettingDisabled) return;
     if (!valorAposta || valorAposta <= 0) {
       return notyf.error("Please enter a valid amount");
@@ -246,12 +253,6 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
       socketRef.current.emit("double:bet", {
         cor: color,
         valor: Number.parseFloat(valorAposta),
-        saldo_usuario: saldoUsuario,
-        pool_lucro_cassino: 100,
-        saldo_cassino: 0,
-        lucro_desejado_cassino: 0.5,
-        cassino_url_callback:
-          "https://3e33-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
       });
     }, 300);
   };

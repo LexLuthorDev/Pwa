@@ -7,7 +7,7 @@ export default function PageHome() {
     return (
     <div className="min-h-full h-screen min-w-sm flex flex-col text-white justify-center">
       {/* Cabeçalho */}
-      <DoubleGame autorizacao_cassino="teste" id_jogador="1" />
+      <DoubleGame token_jogador="token-teste" />
     </div>
   );
 }
