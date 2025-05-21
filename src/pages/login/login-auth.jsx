@@ -1,15 +1,24 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Eye, EyeOff, Mail, Lock, User, Dice1Icon as Dice, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useSearchParams } from "react-router-dom";
 
 export default function LoginAuth() {
   const [showPassword, setShowPassword] = useState(false)
+
+  const [searchParams] = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "login"; // fallback para login
+  const [tabValue, setTabValue] = useState(defaultTab);
+
+  useEffect(() => {
+    setTabValue(defaultTab);
+  }, [defaultTab]);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
@@ -40,7 +49,7 @@ export default function LoginAuth() {
           </a>
           <CardDescription className="text-gray-400">Entre ou cadastre-se para começar a jogar</CardDescription>
         </CardHeader>
-        <Tabs defaultValue="login" className="w-full">
+        <Tabs value={tabValue} onValueChange={setTabValue} className="w-full">
           <TabsList className="grid w-full grid-cols-2 bg-gray-800">
             <TabsTrigger value="login" className="data-[state=active]:bg-green-600 data-[state=active]:text-white data-[state=inactive]:text-neutral-50">
               Login

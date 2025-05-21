@@ -1,7 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Header() {
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
+
+  const navigate = useNavigate(); // ✅ necessário
+
+  const irParaLogin = () => navigate("/login?tab=login");
+const irParaCadastro = () => navigate("/login?tab=register");
 
   return (
     <header className="sticky top-0 z-50 bg-zinc-800/95 backdrop-blur-sm border-b border-zinc-700">
@@ -18,10 +25,10 @@ export default function Header() {
 
         {/* Navegação Desktop */}
         <div className="hidden md:flex items-center space-x-4">
-          <button className="px-4 py-2 rounded-[8px] border border-green-500 text-green-500 hover:bg-green-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]">
+          <button onClick={irParaLogin} className="px-4 py-2 rounded-[8px] border border-green-500 text-green-500 hover:bg-green-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]">
             Entrar
           </button>
-          <button className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200">
+          <button onClick={irParaCadastro} className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200">
             Cadastrar
           </button>
         </div>
@@ -79,10 +86,10 @@ export default function Header() {
         }`}
       >
         <div className="container mx-auto px-4 flex flex-col space-y-2">
-          <button className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
+          <button onClick={irParaLogin} className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
             Entrar
           </button>
-          <button className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
+          <button onClick={irParaCadastro} className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
             Cadastrar
           </button>
         </div>
