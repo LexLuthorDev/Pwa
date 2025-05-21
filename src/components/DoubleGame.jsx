@@ -101,7 +101,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
 
   useEffect(() => {
     // Create socket inside effect
-    socketRef.current = io("https://cb17-45-160-89-106.ngrok-free.app", {
+    socketRef.current = io("https://3e33-45-160-89-106.ngrok-free.app", {
       transports: ["websocket"],
       reconnection: true,
       reconnectionAttempts: 10,
@@ -241,7 +241,7 @@ export default function DoubleGame({ autorizacao_cassino, id_jogador }) {
         pool_lucro_cassino: 100,
         saldo_cassino: 0,
         lucro_desejado_cassino: 0.5,
-        cassino_url_callback: "https://cb17-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
+        cassino_url_callback: "https://3e33-45-160-89-106.ngrok-free.app/api/atualizar-saldo",
       });
     }, 300);
   };
