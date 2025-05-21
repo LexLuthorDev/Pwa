@@ -6,22 +6,7 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PageHome from "./pages/home/page";
 import DoubleGame from "./pages/games/double/page";
-import {
-  AlertTriangle,
-  BookOpen,
-  Dices,
-  Facebook,
-  GamepadIcon,
-  HelpCircle,
-  Instagram,
-  Mail,
-  MessageSquare,
-  Phone,
-  Shield,
-  Twitter,
-  Users,
-  Zap,
-} from "lucide-react";
+import Login from "./pages/login/page";
 
 // ==================== COMPONENTE APP PRINCIPAL ====================
 function App() {
@@ -30,6 +15,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<PageHome />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/games/doublex" element={<DoubleGame />} />
         </Routes>
       </BrowserRouter>

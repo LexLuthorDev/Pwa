@@ -4,6 +4,11 @@ import { VitePWA } from "vite-plugin-pwa";
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
   plugins: [
     tailwindcss(),
     react(),
