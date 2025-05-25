@@ -91,7 +91,7 @@ function CarrosselJogos({ jogos }) {
             key={jogo.id}
             className={`flex-shrink-0 snap-start bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-500/20 active:scale-[0.98] ${
               itensVisiveis === 1
-                ? "w-full"
+                ? "w-[calc(80%-6px)] sm:w-[calc(80%-8px)]"
                 : itensVisiveis === 2
                 ? "w-[calc(50%-6px)] sm:w-[calc(50%-8px)]"
                 : "w-[calc(25%-8px)] sm:w-[calc(25%-11px)]"
