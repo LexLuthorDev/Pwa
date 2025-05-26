@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import { Star } from "lucide-react";
+
 export default function PromocoesSection() {
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
@@ -36,14 +38,21 @@ export default function PromocoesSection() {
 
   return (
     <section className="container mx-auto px-3 py-4 sm:py-6">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between gap-2 mb-3">
+        <div className="flex items-center gap-2">
+          <span className="bg-green-500 text-zinc-800 text-sm px-1 py-1 rounded-[5px]">
+          <img src="/assets/estrela_black.svg" alt="Estrela" className="w-3" />
+        </span>
         <h2 className="text-xl sm:text-2xl font-bold">Promoções</h2>
+        </div>
+        <div>
         <a
           href="#"
           className="text-xs sm:text-sm text-green-500 hover:underline"
         >
           Ver todas
         </a>
+        </div>
       </div>
       <div
         className="flex justify-between overflow-x-auto gap-3 pb-4 scrollbar-hide snap-x snap-mandatory scrollbar-thin scrollbar-track-zinc-800 scrollbar-thumb-zinc-700"
