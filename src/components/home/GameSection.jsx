@@ -91,7 +91,7 @@ function CarrosselJogos({ jogos }) {
             key={jogo.id}
             className={`flex-shrink-0 snap-start bg-zinc-800 border border-zinc-700 rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-green-500/20 active:scale-[0.98] ${
               itensVisiveis === 1
-                ? "w-[calc(80%-6px)] sm:w-[calc(80%-8px)]"
+                ? "w-[calc(70%-6px)] sm:w-[calc(70%-8px)]"
                 : itensVisiveis === 2
                 ? "w-[calc(50%-6px)] sm:w-[calc(50%-8px)]"
                 : "w-[calc(25%-8px)] sm:w-[calc(25%-11px)]"
@@ -104,7 +104,6 @@ function CarrosselJogos({ jogos }) {
                   alt={jogo.titulo}
                   className="w-full h-full"
                   loading="lazy"
-                  
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent"></div>
 
@@ -119,129 +118,66 @@ function CarrosselJogos({ jogos }) {
                     NOVO
                   </div>
                 )}
-
-                {/* Contador de jogadores online */}
-                <div className="absolute bottom-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded-md flex items-center">
-                  <div className="w-2 h-2 rounded-full bg-green-500 mr-1.5 animate-pulse"></div>
-                  {Math.floor(Math.random() * 1000) + 100} online
-                </div>
               </div>
 
               <div className="p-2.5 sm:p-3 text-start">
                 <h3 className="font-bold text-sm sm:text-base mb-0.5 truncate">
                   {jogo.titulo}
                 </h3>
-                <p className="text-zinc-400 text-xs mb-2 truncate">
+                <div className="text-zinc-400 flex text-md mb-2 gap-3 truncate">
                   {jogo.fornecedor}
-                </p>
-
-                {/* Tags de categoria */}
-                <div className="flex flex-wrap gap-1 mb-2">
-                  {["Slots", "Cassino", "Popular"]
-                    .slice(0, Math.floor(Math.random() * 3) + 1)
-                    .map((tag, index) => (
-                      <span
-                        key={index}
-                        className="text-[10px] px-1.5 py-0.5 bg-zinc-700 text-zinc-300 rounded"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <svg
+                          key={i}
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="12"
+                          height="12"
+                          viewBox="0 0 24 24"
+                          fill={i < jogo.avaliacao ? "currentColor" : "none"}
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className={
+                            i < jogo.avaliacao
+                              ? "text-green-500"
+                              : "text-zinc-600"
+                          }
+                        >
+                          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        </svg>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    {Array.from({ length: 5 }).map((_, i) => (
-                      <svg
-                        key={i}
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="12"
-                        height="12"
-                        viewBox="0 0 24 24"
-                        fill={i < jogo.avaliacao ? "currentColor" : "none"}
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className={
-                          i < jogo.avaliacao
-                            ? "text-green-500"
-                            : "text-zinc-600"
-                        }
-                      >
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                      </svg>
-                    ))}
+                {/* Tags de categoria */}
+                <div className="flex justify-between items-center gap-1 mb-2">
+                  <div className="flex gap-1">
+                    {["Slots", "Cassino", "Popular"]
+                      .slice(0, Math.floor(Math.random() * 3) + 1)
+                      .map((tag, index) => (
+                        <span
+                          key={index}
+                          className="flex items-center justify-center font-medium px-4 py-0.5 bg-zinc-700 text-zinc-300 rounded-[5px]"
+                        >
+                          {tag}
+                        </span>
+                      ))}
                   </div>
                   <button
                     onClick={() => navigate(`/games/${jogo.nome}`)}
-                    className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200"
+                    className="px-4 py-0 rounded-[5px] border border-transparent text-white bg-green-500 font-medium cursor-pointer transition-all duration-200"
                   >
-                    Jogar
+                    Jogar!
                   </button>
-                </div>
-
-                {/* Informações adicionais */}
-                <div className="mt-2 pt-2 border-t border-zinc-700 grid grid-cols-2 gap-2 text-[10px] text-zinc-400">
-                  <div className="flex items-center">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mr-1 text-zinc-500"
-                    >
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    {Math.floor(Math.random() * 30) + 5} min
-                  </div>
-                  <div className="flex items-center justify-end">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="12"
-                      height="12"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="mr-1 text-zinc-500"
-                    >
-                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                      <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                    {Math.floor(Math.random() * 1000) + 500}
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-
-      {/* Indicadores de paginação para mobile */}
-      <div className="flex justify-center mt-2 sm:hidden">
-        {Array.from({ length: Math.ceil(jogos.length / itensVisiveis) }).map(
-          (_, i) => (
-            <button
-              key={i}
-              className={`w-2 h-2 mx-1 rounded-full transition-colors ${
-                i === Math.floor(indiceAtual / itensVisiveis)
-                  ? "bg-green-500"
-                  : "bg-zinc-600"
-              }`}
-              onClick={() => setIndiceAtual(i * itensVisiveis)}
-              aria-label={`Ir para página ${i + 1}`}
-            />
-          )
-        )}
       </div>
 
       {/* Botões de navegação (visíveis apenas em telas maiores) */}
@@ -299,7 +235,6 @@ function CarrosselJogos({ jogos }) {
     </div>
   );
 }
-
 
 export default function GameSection({ titulo, jogos }) {
   return (
