@@ -81,23 +81,7 @@ export default function SearchAndCategories() {
       { passive: false }
     );
 
-    // Auto-slide
-    const passo = 1; // pixels por passo
-    const intervalo = 20; // ms entre cada passo
-    const autoScroll = setInterval(() => {
-      if (!categoriesEl) return;
-      if (
-        categoriesEl.scrollLeft + categoriesEl.clientWidth >=
-        categoriesEl.scrollWidth
-      ) {
-        categoriesEl.scrollLeft = 0;
-      } else {
-        categoriesEl.scrollLeft += passo;
-      }
-    }, intervalo);
-
     return () => {
-      clearInterval(autoScroll);
       categoriesEl.removeEventListener("mousedown", handleMouseDown);
       categoriesEl.removeEventListener("mouseleave", handleMouseLeave);
       categoriesEl.removeEventListener("mouseup", handleMouseUp);
