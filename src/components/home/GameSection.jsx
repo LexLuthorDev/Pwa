@@ -98,7 +98,7 @@ function CarrosselJogos({ jogos }) {
             }`}
           >
             <div className="p-0 relative">
-              <div className="relative h-60 sm:h-40 md:h-48 w-full">
+              <div className="relative h-70 sm:h-40 md:h-48 w-full">
                 <img
                   src={jogo.imagem || "https://placehold.co/300x200"}
                   alt={jogo.titulo}
