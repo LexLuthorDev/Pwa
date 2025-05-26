@@ -1,14 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { useAuth } from "@/context/AuthContext";
 
 export default function Header() {
+  const { isAuthenticated, logout } = useAuth();
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
-
-  const navigate = useNavigate(); // ✅ necessário
+  const navigate = useNavigate();
 
   const irParaLogin = () => navigate("/login?tab=login");
-const irParaCadastro = () => navigate("/login?tab=register");
+  const irParaCadastro = () => navigate("/login?tab=register");
+
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-zinc-800/95 backdrop-blur-sm border-b border-zinc-700">
@@ -16,7 +21,7 @@ const irParaCadastro = () => navigate("/login?tab=register");
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img
-              src="https://zonebets.site/public/uploads/57125022025223826.png"
+              src="https://winfun.pro/public/uploads/17216052025043915.png"
               alt="Logo do Cassino"
               className="h-12 sm:h-16 max-w-full object-contain"
             />
@@ -25,12 +30,29 @@ const irParaCadastro = () => navigate("/login?tab=register");
 
         {/* Navegação Desktop */}
         <div className="hidden md:flex items-center space-x-4">
-          <button onClick={irParaLogin} className="px-4 py-2 rounded-[8px] border border-green-500 text-green-500 hover:bg-green-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]">
-            Entrar
-          </button>
-          <button onClick={irParaCadastro} className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200">
-            Cadastrar
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-[8px] border border-red-500 text-red-500 hover:bg-red-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]"
+            >
+              Sair
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={irParaLogin}
+                className="px-4 py-2 rounded-[8px] border border-green-500 text-green-500 hover:bg-green-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]"
+              >
+                Entrar
+              </button>
+              <button
+                onClick={irParaCadastro}
+                className="px-4 py-2 rounded-[8px] border border-transparent text-white bg-[#1a1a1a] font-medium cursor-pointer transition-all duration-200"
+              >
+                Cadastrar
+              </button>
+            </>
+          )}
         </div>
 
         {/* Botão do Menu Mobile */}
@@ -77,7 +99,7 @@ const irParaCadastro = () => navigate("/login?tab=register");
         </button>
       </div>
 
-      {/* Menu Mobile - Animação de slide */}
+      {/* Menu Mobile */}
       <div
         className={`md:hidden bg-zinc-800 border-b border-zinc-700 overflow-hidden transition-all duration-300 ease-in-out ${
           menuMobileAberto
@@ -86,12 +108,32 @@ const irParaCadastro = () => navigate("/login?tab=register");
         }`}
       >
         <div className="container mx-auto px-4 flex flex-col space-y-2">
-          <button onClick={irParaLogin} className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors">
-            Entrar
-          </button>
-          <button onClick={irParaCadastro} className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors">
-            Cadastrar
-          </button>
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                setMenuMobileAberto(false);
+              }}
+              className="w-full px-4 py-2 rounded-md border border-red-500 text-red-500 hover:bg-red-500/10 transition-colors"
+            >
+              Sair
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={irParaLogin}
+                className="w-full px-4 py-2 rounded-md border border-green-500 text-green-500 hover:bg-green-500/10 transition-colors"
+              >
+                Entrar
+              </button>
+              <button
+                onClick={irParaCadastro}
+                className="w-full px-4 py-2 rounded-md bg-gradient-to-r from-green-500 to-red-500 hover:from-green-600 hover:to-red-600 text-white transition-colors"
+              >
+                Cadastrar
+              </button>
+            </>
+          )}
         </div>
       </div>
     </header>
