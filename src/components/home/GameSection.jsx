@@ -106,7 +106,7 @@ function CarrosselJogos({ jogos }) {
                   loading="lazy"
                   
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
 
                 {jogo.quente && (
                   <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded">
