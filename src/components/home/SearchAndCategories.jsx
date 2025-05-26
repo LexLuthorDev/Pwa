@@ -1,4 +1,4 @@
-import { Handshake, Gift, Flag, Mail } from "lucide-react";
+import { Handshake, Gift, Flag, Mail, Gamepad } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 // ==================== DADOS MOCKADOS ====================
@@ -8,6 +8,7 @@ const categoriaJogos = [
   { id: "presentes", nome: "Presentes", icone: Gift },
   { id: "missoes", nome: "Missões", icone: Flag },
   { id: "mensagens", nome: "Mensagens", icone: Mail },
+  { id: "jogos", nome: "Jogos", icone: Gamepad },
 ];
 
 export default function SearchAndCategories() {
