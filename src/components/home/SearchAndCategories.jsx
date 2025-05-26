@@ -127,7 +127,7 @@ export default function SearchAndCategories() {
         >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
             <button
-              className={`flex px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex items-center px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 categoriaAtiva === "todos"
                   ? "bg-green-500 text-white"
                   : "text-zinc-400 hover:text-white"
