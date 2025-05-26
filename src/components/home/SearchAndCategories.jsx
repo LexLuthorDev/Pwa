@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 
 // ==================== DADOS MOCKADOS ====================
 
-// Categorias de jogos
 const categoriaJogos = [
   {
     id: "indique_ganhe",
@@ -27,80 +26,81 @@ export default function SearchAndCategories() {
     if (!categoriesEl) return;
 
     let isDown = false;
+    let isInteracting = false;
     let startX;
     let scrollLeft;
+    let autoScroll;
 
+    // Scroll por mouse
     const handleMouseDown = (e) => {
       isDown = true;
+      isInteracting = true;
       startX = e.pageX - categoriesEl.offsetLeft;
       scrollLeft = categoriesEl.scrollLeft;
     };
 
     const handleMouseLeave = () => {
       isDown = false;
+      isInteracting = false;
     };
 
     const handleMouseUp = () => {
       isDown = false;
+      isInteracting = false;
     };
 
     const handleMouseMove = (e) => {
       if (!isDown) return;
       e.preventDefault();
       const x = e.pageX - categoriesEl.offsetLeft;
-      const walk = (x - startX) * 2; // Velocidade do scroll
+      const walk = (x - startX) * 2;
       categoriesEl.scrollLeft = scrollLeft - walk;
     };
 
+    // Scroll por touch
+    const handleTouchStart = (e) => {
+      isDown = true;
+      isInteracting = true;
+      startX = e.touches[0].pageX - categoriesEl.offsetLeft;
+      scrollLeft = categoriesEl.scrollLeft;
+    };
+
+    const handleTouchEnd = () => {
+      isDown = false;
+      isInteracting = false;
+    };
+
+    const handleTouchMove = (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - categoriesEl.offsetLeft;
+      const walk = (x - startX) * 2;
+      categoriesEl.scrollLeft = scrollLeft - walk;
+    };
+
+    // Auto-scroll infinito
+    const startAutoScroll = () => {
+      autoScroll = setInterval(() => {
+        if (!categoriesEl || isInteracting) return;
+        categoriesEl.scrollLeft += 1;
+
+        // Reset suave no meio (duplicado)
+        if (categoriesEl.scrollLeft >= categoriesEl.scrollWidth / 2) {
+          categoriesEl.scrollLeft = 0;
+        }
+      }, 30);
+    };
+
+    startAutoScroll();
+
+    // Listeners
     categoriesEl.addEventListener("mousedown", handleMouseDown);
     categoriesEl.addEventListener("mouseleave", handleMouseLeave);
     categoriesEl.addEventListener("mouseup", handleMouseUp);
     categoriesEl.addEventListener("mousemove", handleMouseMove);
 
-    // Touch events
-    categoriesEl.addEventListener(
-      "touchstart",
-      (e) => {
-        isDown = true;
-        startX = e.touches[0].pageX - categoriesEl.offsetLeft;
-        scrollLeft = categoriesEl.scrollLeft;
-      },
-      { passive: false }
-    );
-
-    categoriesEl.addEventListener(
-      "touchend",
-      () => {
-        isDown = false;
-      },
-      { passive: false }
-    );
-
-    categoriesEl.addEventListener(
-      "touchmove",
-      (e) => {
-        if (!isDown) return;
-        const x = e.touches[0].pageX - categoriesEl.offsetLeft;
-        const walk = (x - startX) * 2;
-        categoriesEl.scrollLeft = scrollLeft - walk;
-      },
-      { passive: false }
-    );
-
-    // Auto-slide
-    const passo = 1; // pixels por passo
-    const intervalo = 50; // ms entre cada passo
-    const autoScroll = setInterval(() => {
-      if (!categoriesEl) return;
-      if (
-        categoriesEl.scrollLeft + categoriesEl.clientWidth >=
-        categoriesEl.scrollWidth
-      ) {
-        categoriesEl.scrollLeft = 0;
-      } else {
-        categoriesEl.scrollLeft += passo;
-      }
-    }, intervalo);
+    categoriesEl.addEventListener("touchstart", handleTouchStart, { passive: false });
+    categoriesEl.addEventListener("touchend", handleTouchEnd, { passive: false });
+    categoriesEl.addEventListener("touchmove", handleTouchMove, { passive: false });
 
     return () => {
       clearInterval(autoScroll);
@@ -109,9 +109,9 @@ export default function SearchAndCategories() {
       categoriesEl.removeEventListener("mouseup", handleMouseUp);
       categoriesEl.removeEventListener("mousemove", handleMouseMove);
 
-      categoriesEl.removeEventListener("touchstart", handleMouseDown);
-      categoriesEl.removeEventListener("touchend", handleMouseLeave);
-      categoriesEl.removeEventListener("touchmove", handleMouseMove);
+      categoriesEl.removeEventListener("touchstart", handleTouchStart);
+      categoriesEl.removeEventListener("touchend", handleTouchEnd);
+      categoriesEl.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
 
@@ -148,11 +148,11 @@ export default function SearchAndCategories() {
           ref={categoriesRef}
         >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
-            {categoriaJogos.map((categoria) => {
+            {[...categoriaJogos, ...categoriaJogos].map((categoria, index) => {
               const Icone = categoria.icone;
               return (
                 <button
-                  key={categoria.id}
+                  key={categoria.id + "_" + index}
                   className={`flex items-center px-2 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                     categoria.is_span === false
                       ? "bg-green-500 text-white"
