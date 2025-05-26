@@ -21,7 +21,7 @@ export default function Header() {
         <div className="flex items-center">
           <a href="/" className="flex items-center">
             <img
-              src="https://winfun.pro/public/uploads/17216052025043915.png"
+              src="/assets/logo.svg"
               alt="Logo do Cassino"
               className="h-12 sm:h-16 max-w-full object-contain"
             />
