@@ -1,14 +1,17 @@
-import { Handshake, Gift, Flag, Mail, Gamepad } from "lucide-react";
+import { Handshake, Gift, Flag, Mail } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 // ==================== DADOS MOCKADOS ====================
-
-// Categorias de jogos
 const categoriaJogos = [
-  { id: "presentes", nome: "Presentes", icone: Gift },
-  { id: "missoes", nome: "Missões", icone: Flag },
-  { id: "mensagens", nome: "Mensagens", icone: Mail },
-  { id: "jogos", nome: "Jogos", icone: Gamepad },
+  {
+    id: "indique_ganhe",
+    nome: "Indique e Ganhe",
+    icone: Handshake,
+    is_span: false,
+  },
+  { id: "presentes", nome: "Presentes", icone: Gift, is_span: true },
+  { id: "missoes", nome: "Missões", icone: Flag, is_span: false },
+  { id: "mensagens", nome: "Mensagens", icone: Mail, is_span: true },
 ];
 
 export default function SearchAndCategories() {
@@ -16,103 +19,96 @@ export default function SearchAndCategories() {
   const [categoriaAtiva, setCategoriaAtiva] = useState("todos");
   const categoriesRef = useRef(null);
 
-  // Função para scroll horizontal com toque
   useEffect(() => {
-    const categoriesEl = categoriesRef.current;
-    if (!categoriesEl) return;
+  const categoriesEl = categoriesRef.current;
+  if (!categoriesEl) return;
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+  let isDown = false;
+  let startX;
+  let scrollLeft;
 
-    const handleMouseDown = (e) => {
-      isDown = true;
-      startX = e.pageX - categoriesEl.offsetLeft;
-      scrollLeft = categoriesEl.scrollLeft;
-    };
+  // ======= HANDLERS ========
+  const handleMouseDown = (e) => {
+    isDown = true;
+    startX = e.pageX - categoriesEl.offsetLeft;
+    scrollLeft = categoriesEl.scrollLeft;
+  };
 
-    const handleMouseLeave = () => {
-      isDown = false;
-    };
+  const handleMouseUp = () => (isDown = false);
+  const handleMouseLeave = () => (isDown = false);
 
-    const handleMouseUp = () => {
-      isDown = false;
-    };
+  const handleMouseMove = (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - categoriesEl.offsetLeft;
+    const walk = (x - startX) * 2;
+    categoriesEl.scrollLeft = scrollLeft - walk;
+  };
 
-    const handleMouseMove = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - categoriesEl.offsetLeft;
-      const walk = (x - startX) * 2; // Velocidade do scroll
-      categoriesEl.scrollLeft = scrollLeft - walk;
-    };
+  const handleTouchStart = (e) => {
+    isDown = true;
+    startX = e.touches[0].pageX - categoriesEl.offsetLeft;
+    scrollLeft = categoriesEl.scrollLeft;
+  };
 
-    categoriesEl.addEventListener("mousedown", handleMouseDown);
-    categoriesEl.addEventListener("mouseleave", handleMouseLeave);
-    categoriesEl.addEventListener("mouseup", handleMouseUp);
-    categoriesEl.addEventListener("mousemove", handleMouseMove);
+  const handleTouchEnd = () => (isDown = false);
 
-    // Touch events
-    categoriesEl.addEventListener(
-      "touchstart",
-      (e) => {
-        isDown = true;
-        startX = e.touches[0].pageX - categoriesEl.offsetLeft;
-        scrollLeft = categoriesEl.scrollLeft;
-      },
-      { passive: false }
-    );
+  const handleTouchMove = (e) => {
+    if (!isDown) return;
+    const x = e.touches[0].pageX - categoriesEl.offsetLeft;
+    const walk = (x - startX) * 2;
+    categoriesEl.scrollLeft = scrollLeft - walk;
+  };
 
-    categoriesEl.addEventListener(
-      "touchend",
-      () => {
-        isDown = false;
-      },
-      { passive: false }
-    );
+  // ======= BIND EVENTS ========
+  categoriesEl.addEventListener("mousedown", handleMouseDown);
+  categoriesEl.addEventListener("mouseup", handleMouseUp);
+  categoriesEl.addEventListener("mouseleave", handleMouseLeave);
+  categoriesEl.addEventListener("mousemove", handleMouseMove);
 
-    categoriesEl.addEventListener(
-      "touchmove",
-      (e) => {
-        if (!isDown) return;
-        const x = e.touches[0].pageX - categoriesEl.offsetLeft;
-        const walk = (x - startX) * 2;
-        categoriesEl.scrollLeft = scrollLeft - walk;
-      },
-      { passive: false }
-    );
+  categoriesEl.addEventListener("touchstart", handleTouchStart, {
+    passive: false,
+  });
+  categoriesEl.addEventListener("touchend", handleTouchEnd, {
+    passive: false,
+  });
+  categoriesEl.addEventListener("touchmove", handleTouchMove, {
+    passive: false,
+  });
 
-    // Auto-slide
-    const passo = 1; // pixels por passo
-    const intervalo = 20; // ms entre cada passo
-    const autoScroll = setInterval(() => {
-      if (!categoriesEl) return;
-      if (
-        categoriesEl.scrollLeft + categoriesEl.clientWidth >=
-        categoriesEl.scrollWidth
-      ) {
-        categoriesEl.scrollLeft = 0;
-      } else {
-        categoriesEl.scrollLeft += passo;
-      }
-    }, intervalo);
+  // ======= AUTO SCROLL ========
+  const passo = 1;
+  const intervalo = 20;
+  const autoScroll = setInterval(() => {
+    if (
+      categoriesEl.scrollLeft + categoriesEl.clientWidth >=
+      categoriesEl.scrollWidth
+    ) {
+      categoriesEl.scrollLeft = 0;
+    } else {
+      categoriesEl.scrollLeft += passo;
+    }
+  }, intervalo);
 
-    return () => {
-      clearInterval(autoScroll);
-      categoriesEl.removeEventListener("mousedown", handleMouseDown);
-      categoriesEl.removeEventListener("mouseleave", handleMouseLeave);
-      categoriesEl.removeEventListener("mouseup", handleMouseUp);
-      categoriesEl.removeEventListener("mousemove", handleMouseMove);
+  // ======= CLEANUP ========
+  return () => {
+    clearInterval(autoScroll);
+    categoriesEl.removeEventListener("mousedown", handleMouseDown);
+    categoriesEl.removeEventListener("mouseup", handleMouseUp);
+    categoriesEl.removeEventListener("mouseleave", handleMouseLeave);
+    categoriesEl.removeEventListener("mousemove", handleMouseMove);
 
-      categoriesEl.removeEventListener("touchstart", handleMouseDown);
-      categoriesEl.removeEventListener("touchend", handleMouseLeave);
-      categoriesEl.removeEventListener("touchmove", handleMouseMove);
-    };
-  }, []);
+    categoriesEl.removeEventListener("touchstart", handleTouchStart);
+    categoriesEl.removeEventListener("touchend", handleTouchEnd);
+    categoriesEl.removeEventListener("touchmove", handleTouchMove);
+  };
+}, []);
+
 
   return (
     <section className="container mx-auto px-1 py-0 sm:py-0">
       <div className="flex flex-col gap-3 sm:gap-4">
+        {/* Campo de busca */}
         <div className="relative w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -138,35 +134,32 @@ export default function SearchAndCategories() {
           />
         </div>
 
+        {/* Lista de categorias com auto-slide */}
         <div
-          className="w-full overflow-x-auto pb-1 scrollbar-hide"
+          className="w-full overflow-x-auto pb-1 scrollbar-hide snap-x snap-mandatory scroll-smooth"
           ref={categoriesRef}
         >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
-            <button
-              className={`flex items-center px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                categoriaAtiva === "todos"
-                  ? "bg-green-500 text-white"
-                  : "text-zinc-400 hover:text-white"
-              }`}
-              onClick={() => setCategoriaAtiva("todos")}
-            >
-              <Handshake className=" w-4 mr-2" />
-              Indique e Ganhe
-            </button>
             {categoriaJogos.map((categoria) => {
               const Icone = categoria.icone;
+              const ativa = categoriaAtiva === categoria.id;
+
               return (
                 <button
                   key={categoria.id}
-                  className={`flex items-center px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                    categoriaAtiva === categoria.id
-                      ? "bg-green-500 text-white"
-                      : "text-zinc-400 hover:text-white"
+                  className={`flex items-center px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors snap-start ${
+                    categoria.is_span ? "bg-zinc-700 text-white" : "bg-green-500 text-white"
+                      
                   }`}
                   onClick={() => setCategoriaAtiva(categoria.id)}
                 >
-                  <Icone className="w-4 h-4 mr-2" />
+                  {categoria.is_span ? (
+                    <span className="mr-2 bg-green-500 p-1 rounded-sm">
+                      <Icone className="w-4 h-4" />
+                    </span>
+                  ) : (
+                    <Icone className="w-4 h-4 mr-2" />
+                  )}
                   {categoria.nome}
                 </button>
               );
