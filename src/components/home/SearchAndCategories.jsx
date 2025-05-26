@@ -1,15 +1,13 @@
+import { Handshake, Gift, Flag, Mail } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 
 // ==================== DADOS MOCKADOS ====================
 
 // Categorias de jogos
 const categoriaJogos = [
-  { id: "slots", nome: "Caça-Níqueis" },
-  { id: "mesa", nome: "Jogos de Mesa" },
-  { id: "aovivo", nome: "Cassino ao Vivo" },
-  { id: "esportes", nome: "Apostas Esportivas" },
-  { id: "poker", nome: "Poker" },
-  { id: "jackpot", nome: "Jackpots" },
+  { id: "presentes", nome: "Presentes", icone: Gift },
+  { id: "missoes", nome: "Missões", icone: Flag },
+  { id: "mensagens", nome: "Mensagens", icone: Mail },
 ];
 
 export default function SearchAndCategories() {
@@ -129,28 +127,33 @@ export default function SearchAndCategories() {
         >
           <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
             <button
-              className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+              className={`flex px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                 categoriaAtiva === "todos"
-                  ? "bg-zinc-700 text-white"
+                  ? "bg-green-500 text-white"
                   : "text-zinc-400 hover:text-white"
               }`}
               onClick={() => setCategoriaAtiva("todos")}
             >
-              Todos os Jogos
+              <Handshake className="mr-2 w-4" />
+              Indique e Ganhe
             </button>
-            {categoriaJogos.map((categoria) => (
-              <button
-                key={categoria.id}
-                className={`px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                  categoriaAtiva === categoria.id
-                    ? "bg-zinc-700 text-white"
-                    : "text-zinc-400 hover:text-white"
-                }`}
-                onClick={() => setCategoriaAtiva(categoria.id)}
-              >
-                {categoria.nome}
-              </button>
-            ))}
+            {categoriaJogos.map((categoria) => {
+              const Icone = categoria.icone;
+              return (
+                <button
+                  key={categoria.id}
+                  className={`flex items-center px-3 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
+                    categoriaAtiva === categoria.id
+                      ? "bg-green-500 text-white"
+                      : "text-zinc-400 hover:text-white"
+                  }`}
+                  onClick={() => setCategoriaAtiva(categoria.id)}
+                >
+                  <Icone className="w-4 h-4 mr-2" />
+                  {categoria.nome}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

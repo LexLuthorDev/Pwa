@@ -40,7 +40,7 @@ export default function PromocoesSection() {
     <section className="container mx-auto px-3 py-4 sm:py-6">
       <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
-          <span className="bg-green-500 text-zinc-800 text-sm px-1 py-1 rounded-[5px]">
+          <span className="bg-yellow-300 text-zinc-800 text-sm px-1 py-1 rounded-[5px]">
           <img src="/assets/estrela_black.svg" alt="Estrela" className="w-3" />
         </span>
         <h2 className="text-xl sm:text-2xl font-bold">Promoções</h2>
