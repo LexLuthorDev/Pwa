@@ -98,12 +98,13 @@ function CarrosselJogos({ jogos }) {
             }`}
           >
             <div className="p-0 relative">
-              <div className="relative h-36 sm:h-40 md:h-48 w-full">
+              <div className="relative h-60 sm:h-40 md:h-48 w-full">
                 <img
                   src={jogo.imagem || "https://placehold.co/300x200"}
                   alt={jogo.titulo}
                   className="w-full h-full"
                   loading="lazy"
+                  
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
 
