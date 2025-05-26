@@ -37,7 +37,7 @@ export default function PromocoesSection() {
   };
 
   return (
-    <section className="container mx-auto px-3 py-4 sm:py-6">
+    <section className="container mx-auto px-1 py-3 sm:py-2">
       <div className="flex items-center justify-between gap-2 mb-3">
         <div className="flex items-center gap-2">
           <span className="bg-yellow-300 text-zinc-800 text-sm px-1 py-1 rounded-[5px]">
