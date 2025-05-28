@@ -8,7 +8,7 @@ export default function Header() {
   const navigate = useNavigate();
 
   const irParaLogin = () => navigate("/login?tab=login");
-  const irParaCadastro = () => navigate("/login?tab=register");
+  const irParaCadastro = () => navigate("/cadastro");
 
   const handleLogout = () => {
     logout();

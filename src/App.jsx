@@ -12,6 +12,7 @@ import PageHome from "./pages/home/page";
 import DoubleGame from "./pages/games/double/page";
 import MinesGame from "./pages/games/mines/page";
 import Login from "./pages/login/page";
+import Cadastro from "./pages/cadastro/page";
 
 // ==================== COMPONENTE APP PRINCIPAL ====================
 function App() {
@@ -22,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<PageHome />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
             <Route
               path="/games/doublex"
               element={
