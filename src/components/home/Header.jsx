@@ -31,7 +31,13 @@ export default function Header() {
         </div>
 
         {/* Navegação Desktop */}
-        <div className="w-[60%] flex flex-row items-center justify-start">
+        <div
+          className={`w-[60%] ${
+            isAuthenticated
+              ? "flex flex-row items-center justify-start space-x-4"
+              : "flex items-center justify-end space-x-1 md:flex"
+          }`}
+        >
           {isAuthenticated ? (
             <>
               {/* Ocupa mais espaço com flex-grow */}
