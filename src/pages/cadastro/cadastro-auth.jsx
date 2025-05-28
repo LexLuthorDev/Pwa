@@ -268,10 +268,11 @@ export default function CadastroAuth() {
                 onChange={(e) => setNomeRegister(e.target.value)}
                 required
                 disabled={registerFeedback.isLoading}
-                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-white"
+                className="pl-10 bg-gray-800 border-green-500 text-white placeholder:text-white focus:bg-gray-800"
               />
             </div>
           </div>
+
           <div className="space-y-2 mt-3">
             <Label htmlFor="email-register" className="text-gray-300">
               Seu Email
@@ -295,7 +296,7 @@ export default function CadastroAuth() {
                 onChange={(e) => setEmailRegister(e.target.value)}
                 required
                 disabled={registerFeedback.isLoading}
-                className="pl-10 bg-gray-800 border-gray-700 text-white placeholder:text-white"
+                className="pl-10 bg-gray-800 border-green-500 text-white placeholder:text-white focus:bg-gray-800"
               />
             </div>
           </div>
@@ -324,10 +325,11 @@ export default function CadastroAuth() {
                 onChange={(e) => setWhatsappRegister(e.target.value)}
                 required
                 disabled={registerFeedback.isLoading}
-                className="pl-10 bg-[#2E603F] border-gray-700 text-white placeholder:text-white"
+                className="pl-10 bg-[#2E603F] border-green-500 text-white placeholder:text-white focus:bg-[#2E603F]"
               />
             </div>
           </div>
+
           <div className="space-y-2 mt-3">
             <Label htmlFor="password-register" className="text-gray-300">
               Senha
@@ -342,7 +344,7 @@ export default function CadastroAuth() {
                 onChange={(e) => setSenhaRegister(e.target.value)}
                 required
                 disabled={registerFeedback.isLoading}
-                className="pl-10 pr-10 bg-gray-800 border-gray-700 text-white placeholder:text-white"
+                className="pl-10 pr-10 bg-gray-800 border-green-500 text-white placeholder:text-white focus:bg-gray-800"
               />
               <Button
                 type="button"
