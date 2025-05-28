@@ -30,6 +30,8 @@ import { loginJogador } from "../../api/jogador";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext"; // ✅ importa o hook do contexto
 
+import SplashScreen from "@/components/SplashScreen";
+
 // Hook para gerenciar feedback de API
 function useApiFeedback(initialStatus = "idle") {
   const [status, setStatus] = useState(initialStatus);
@@ -153,6 +155,8 @@ export default function LoginAuth() {
   const { login: loginContext } = useAuth(); // ✅ pega a função login do contexto
   const [showPassword, setShowPassword] = useState(false);
 
+  const [showSplash, setShowSplash] = useState(true);
+
   const [emailLogin, setEmailLogin] = useState("");
   const [senhaLogin, setSenhaLogin] = useState("");
 
@@ -197,6 +201,11 @@ export default function LoginAuth() {
   const handleRetryLogin = () => {
     loginFeedback.setIdle();
   };
+
+  // === ✅ Splash Screen antes do conteúdo principal ===
+  if (showSplash) {
+    return <SplashScreen onFinish={() => setShowSplash(false)} />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-black bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-black">

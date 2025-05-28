@@ -30,6 +30,9 @@ import { cn } from "@/lib/utils";
 import { createJogador } from "../../api/jogador";
 import { useNavigate } from "react-router-dom";
 
+import SplashScreen from "@/components/SplashScreen";
+
+
 // Hook para gerenciar feedback de API
 function useApiFeedback(initialStatus = "idle") {
   const [status, setStatus] = useState(initialStatus);
@@ -157,6 +160,9 @@ export default function CadastroAuth() {
   const [whatsappRegister, setWhatsappRegister] = useState("");
   const [senhaRegister, setSenhaRegister] = useState("");
 
+    const [showSplash, setShowSplash] = useState(true);
+
+
   const [message, setMessage] = useState("");
 
   // Feedback states
@@ -203,6 +209,11 @@ export default function CadastroAuth() {
   const handleRetryRegister = () => {
     registerFeedback.setIdle();
   };
+
+  // === ✅ Splash Screen antes do conteúdo principal ===
+    if (showSplash) {
+      return <SplashScreen onFinish={() => setShowSplash(false)} />;
+    }
 
   return (
     <div className="flex flex-col items-center justify-start min-h-screen bg-black bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gray-900 to-black">
