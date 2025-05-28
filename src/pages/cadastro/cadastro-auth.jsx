@@ -13,6 +13,7 @@ import {
   Loader2,
   Headset,
   Laugh,
+  Smartphone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -307,7 +308,14 @@ export default function CadastroAuth() {
               </span>
             </Label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 h-4 w-4 text-white" />
+              {/* Ícone do e-mail<img
+                src="/assets/whatsapp.svg"
+                alt="Banner do Cassino"
+                className="absolute left-3 top-3 h-4 w-4 object-contain"
+                loading="eager"
+              />
+              */}
+              <Smartphone className="absolute left-3 top-3 h-4 w-4 text-white" />
               <Input
                 id="whatsapp-register"
                 placeholder="Digite aqui seu número de Telefone"
