@@ -2,8 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
-import { Gift, Menu } from "lucide-react";
-
 export default function Header() {
   const { isAuthenticated, logout } = useAuth();
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
@@ -31,42 +29,14 @@ export default function Header() {
         </div>
 
         {/* Navegação Desktop */}
-        <div className="w-[60%] flex flex-row items-center justify-start">
+        <div className="md:flex flex items-center space-x-1 bg-red-300">
           {isAuthenticated ? (
-            <>
-              {/* Ocupa mais espaço com flex-grow */}
-              <div className="flex-grow">
-                <span className="flex flex-col justify-center items-start">
-                  Seu saldo:
-                  <span className="font-bold">R$ 12.073,00</span>
-                </span>
-              </div>
-
-              {/* Tamanho automático, não cresce */}
-              <div className=" flex items-center justify-center">
-                <span className="w-full flex flex-col justify-center items-start mr-3 relative">
-                  <button
-                    onClick={handleLogout}
-                    className="px-1 py-1 rounded-md border border-transparent text-white bg-green-500 font-medium cursor-pointer transition-all duration-200 relative"
-                  >
-                    <Gift />
-                    <span className="absolute -top-2 -right-2 bg-yellow-300 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
-                      3
-                    </span>
-                  </button>
-                </span>
-              </div>
-
-              {/* Tamanho automático, não cresce */}
-              <div className="flex items-center justify-center">
-                <button
-                  onClick={() => setMenuMobileAberto(true)}
-                  className="px-1 py-1 rounded-md border border-transparent text-white font-medium cursor-pointer transition-all duration-200"
-                >
-                  <Menu />
-                </button>
-              </div>
-            </>
+            <button
+              onClick={handleLogout}
+              className="px-4 py-2 rounded-[8px] border border-red-500 text-red-500 hover:bg-red-500/10 font-medium cursor-pointer transition-colors bg-[#1a1a1a]"
+            >
+              Sair
+            </button>
           ) : (
             <>
               <div className="relative">
