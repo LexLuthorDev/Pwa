@@ -50,7 +50,7 @@ export default function Header() {
 
               {/* Tamanho automático, não cresce */}
               <div className=" flex items-center justify-center">
-                <span className="w-full flex flex-col justify-center items-start mr-3 relative">
+                <span className="w-full flex flex-col justify-center items-start mr-0 relative">
                   <button
                     onClick={handleLogout}
                     className="px-1 py-1 rounded-md border border-transparent text-white bg-green-500 font-medium cursor-pointer transition-all duration-200 relative"
