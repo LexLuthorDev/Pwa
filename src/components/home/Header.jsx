@@ -2,9 +2,15 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 
+import { useDadosJogador } from "@/context/DadosJogadorContext";
+
 import { Gift, Menu } from "lucide-react";
 
 export default function Header() {
+  const { dadosJogador } = useDadosJogador();
+
+  console.log("Saldo total:", dadosJogador?.usuario?.jogador?.saldo_total);
+  const saldoJogador = dadosJogador?.usuario?.jogador?.saldo_total ?? 0;
   const { isAuthenticated, logout } = useAuth();
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
   const navigate = useNavigate();
@@ -44,7 +50,7 @@ export default function Header() {
               <div className="flex-grow">
                 <span className="flex flex-col justify-center items-start">
                   Seu saldo:
-                  <span className="font-bold">R$ 12.073,00</span>
+                  <span className="font-bold">{saldoJogador}</span>
                 </span>
               </div>
 

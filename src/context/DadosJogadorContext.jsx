@@ -11,11 +11,13 @@ export const DadosJogadorProvider = ({ children }) => {
 
   const getDadosJogadorData = async () => {
     setLoading(true);
+    
     try {
       const res = await getJogadorMe();
+      
       setDadosJogador(res.data);
     } catch (err) {
-      console.error("Erro ao buscar dados do cassino:", err);
+      console.error("Erro ao buscar dados do jogador:", err);
     } finally {
       setLoading(false);
     }

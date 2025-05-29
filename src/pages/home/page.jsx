@@ -7,6 +7,7 @@ import PromocoesSection from "../../components/home/PromocoesSection";
 import Footer from "../../components/home/Footer";
 import GameSection from "../../components/home/GameSection";
 
+
 // ==================== DADOS MOCKADOS ====================
 
 // Jogos em destaque
@@ -161,6 +162,7 @@ const jogosNovos = [
 ];
 
 export default function PageHome() {
+  
   return (
     <div className="min-h-screen flex flex-col bg-zinc-900 text-white">
       {/* Cabeçalho */}

@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import PrivateRoute from "./routes/PrivateRoute";
 import { AuthProvider } from "./context/AuthContext";
+import { DadosJogadorProvider } from "./context/DadosJogadorContext";
 
 import PageHome from "./pages/home/page";
 import DoubleGame from "./pages/games/double/page";
@@ -21,7 +22,14 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<PageHome />} />
+            <Route
+              path="/"
+              element={
+                <DadosJogadorProvider>
+                  <PageHome />
+                </DadosJogadorProvider>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route
