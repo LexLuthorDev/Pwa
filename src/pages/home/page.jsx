@@ -7,7 +7,7 @@ import PromocoesSection from "../../components/home/PromocoesSection";
 import Footer from "../../components/home/Footer";
 import GameSection from "../../components/home/GameSection";
 
-
+import { useTheme } from "@/context/ThemeContext";
 // ==================== DADOS MOCKADOS ====================
 
 // Jogos em destaque
@@ -162,9 +162,9 @@ const jogosNovos = [
 ];
 
 export default function PageHome() {
-  
+  const theme = useTheme();
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-900 text-white">
+    <div style={{ backgroundColor: theme?.cor_fundo || "#18181B" }} className="min-h-screen flex flex-col text-white">
       {/* Cabeçalho */}
       <Header />
 

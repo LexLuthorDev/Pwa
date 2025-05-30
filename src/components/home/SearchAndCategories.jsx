@@ -1,6 +1,6 @@
 import { Handshake, Gift, Flag, Mail } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
-
+import { useTheme } from "@/context/ThemeContext";
 // ==================== DADOS MOCKADOS ====================
 
 const categoriaJogos = [
@@ -16,6 +16,7 @@ const categoriaJogos = [
 ];
 
 export default function SearchAndCategories() {
+  const theme = useTheme();
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [categoriaAtiva, setCategoriaAtiva] = useState("todos");
   const categoriesRef = useRef(null);
@@ -98,9 +99,15 @@ export default function SearchAndCategories() {
     categoriesEl.addEventListener("mouseup", handleMouseUp);
     categoriesEl.addEventListener("mousemove", handleMouseMove);
 
-    categoriesEl.addEventListener("touchstart", handleTouchStart, { passive: false });
-    categoriesEl.addEventListener("touchend", handleTouchEnd, { passive: false });
-    categoriesEl.addEventListener("touchmove", handleTouchMove, { passive: false });
+    categoriesEl.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    categoriesEl.addEventListener("touchend", handleTouchEnd, {
+      passive: false,
+    });
+    categoriesEl.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
 
     return () => {
       clearInterval(autoScroll);
@@ -121,7 +128,8 @@ export default function SearchAndCategories() {
         <div className="relative w-full">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-zinc-400"
+            style={{ color: theme?.cor_texto_secundaria }}
+            className="absolute left-3 top-1/2 transform -translate-y-1/2"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -137,7 +145,24 @@ export default function SearchAndCategories() {
           <input
             type="text"
             placeholder="Pesquisar jogos..."
-            className="w-full pl-9 py-2.5 text-sm sm:text-base rounded-md bg-zinc-800 border border-zinc-700 text-white focus:border-green-500 focus:ring-1 focus:ring-green-500 focus:outline-none"
+            style={{
+              color: theme?.cor_texto_primaria,
+              borderColor: theme?.cor_borda_input || "#3f3f46",
+              backgroundColor: theme?.bg_input || "#27272a",
+            }}
+            className="w-full pl-9 py-2.5 text-sm sm:text-base rounded-md border focus:ring-1 focus:outline-none"
+            onFocus={(e) => {
+              e.target.style.borderColor =
+                theme?.cor_borda_onfocus_input || "#22c55e"; // fallback green-500
+              e.target.style.boxShadow = `0 0 0 1px ${
+                theme?.cor_borda_onfocus_input || "#22c55e"
+              }`;
+            }}
+            onBlur={(e) => {
+              e.target.style.borderColor =
+                theme?.cor_borda_onblur_input || "#3f3f46";
+              e.target.style.boxShadow = "none";
+            }}
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}
           />
@@ -147,21 +172,38 @@ export default function SearchAndCategories() {
           className="w-full overflow-x-auto pb-1 scrollbar-hide"
           ref={categoriesRef}
         >
-          <div className="flex bg-zinc-800 gap-2 border border-zinc-700 rounded-md p-1 min-w-max">
+          <div
+            style={{
+              borderColor: theme?.cor_borda_input || "#3f3f46",
+              backgroundColor: theme?.bg_input || "#27272a",
+            }}
+            className="flex gap-2 border  rounded-md p-1 min-w-max"
+          >
             {[...categoriaJogos, ...categoriaJogos].map((categoria, index) => {
               const Icone = categoria.icone;
+              // Define se deve aplicar cor primária ou não
+              const isHighlight = categoria.is_span === false;
               return (
                 <button
                   key={categoria.id + "_" + index}
-                  className={`flex items-center px-2 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors ${
-                    categoria.is_span === false
-                      ? "bg-green-500 text-white"
-                      : "bg-zinc-700 text-white hover:text-white"
-                  }`}
+                  style={{
+                    backgroundColor: isHighlight
+                      ? theme?.cor_primaria || "#22c55e"
+                      : theme?.bg_secundario || "#3f3f46",
+                    color: isHighlight
+                      ? theme?.cor_texto_primaria || "#ffffff"
+                      : theme?.cor_texto_primaria || "#ffffff",
+                  }}
+                  className="flex items-center px-2 py-1.5 rounded-md text-xs sm:text-sm font-medium transition-colors"
                   onClick={() => setCategoriaAtiva(categoria.id)}
                 >
                   {categoria.is_span ? (
-                    <span className="mr-2 bg-green-500 p-1 rounded-sm">
+                    <span
+                      style={{
+                        backgroundColor: theme?.cor_primaria || "#1DC950",
+                      }}
+                      className="mr-2 p-1 rounded-sm"
+                    >
                       <Icone className="w-4 h-4" />
                     </span>
                   ) : (
