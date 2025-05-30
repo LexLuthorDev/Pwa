@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useTheme } from "@/context/ThemeContext";
 
 import { useDadosJogador } from "@/context/DadosJogadorContext";
 
 import { Gift, Menu } from "lucide-react";
 
 export default function Header() {
+  const theme = useTheme();
+  
   const { dadosJogador } = useDadosJogador();
 
-  console.log("Saldo total:", dadosJogador?.usuario?.jogador?.saldo_total);
+  console.log("Tema:", theme);
+
+
   const saldoJogador = dadosJogador?.usuario?.jogador?.saldo_total ?? 0;
   const { isAuthenticated, logout } = useAuth();
   const [menuMobileAberto, setMenuMobileAberto] = useState(false);
@@ -24,7 +29,7 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-zinc-800/95 backdrop-blur-sm border-b border-zinc-700">
+    <header style={{ backgroundColor: theme?.cor_secundaria }} className="sticky top-0 z-50  backdrop-blur-sm border-b border-zinc-700">
       <div className="container mx-auto px-1 py-2 sm:py-3 flex items-center justify-between">
         <div className="flex items-center">
           <a href="/" className="flex items-center">
@@ -47,7 +52,7 @@ export default function Header() {
           {isAuthenticated ? (
             <>
               {/* Ocupa mais espaço com flex-grow */}
-              <div className="flex-grow">
+              <div style={{color: theme?.cor_texto_primaria}} className="flex-grow">
                 <span className="flex flex-col justify-center items-start">
                   Seu saldo:
                   <span className="font-bold">{saldoJogador}</span>
@@ -59,10 +64,11 @@ export default function Header() {
                 <span className="w-full flex flex-col justify-center items-start mr-0 relative">
                   <button
                     onClick={handleLogout}
-                    className="px-1 py-1 rounded-md border border-transparent text-white bg-green-500 font-medium cursor-pointer transition-all duration-200 relative"
+                    style={{ backgroundColor: theme?.cor_primaria, color: theme?.cor_texto_primaria }}
+                    className="px-1 py-1 rounded-md border border-transparent  font-medium cursor-pointer transition-all duration-200 relative"
                   >
                     <Gift />
-                    <span className="absolute -top-2 -right-2 bg-yellow-300 text-black text-xs font-bold px-1.5 py-0.5 rounded-full">
+                    <span style={{ backgroundColor: theme?.cor_tercearia, color: theme?.cor_texto_dark }} className="absolute -top-2 -right-2 text-xs font-bold px-1.5 py-0.5 rounded-full">
                       3
                     </span>
                   </button>
@@ -73,7 +79,8 @@ export default function Header() {
               <div className="flex items-center justify-center">
                 <button
                   onClick={() => setMenuMobileAberto(true)}
-                  className="px-1 py-1 rounded-md border border-transparent text-white font-medium cursor-pointer transition-all duration-200"
+                  style={{color: theme?.cor_texto_primaria}}
+                  className="px-1 py-1 rounded-md border border-transparent  font-medium cursor-pointer transition-all duration-200"
                 >
                   <Menu />
                 </button>

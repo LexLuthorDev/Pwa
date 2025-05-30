@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { createContext, useState, useContext } from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import { getJogadorMe } from "../api/jogador";
-import http from "../api/http";
 
 const DadosJogadorContext = createContext();
 
