@@ -9,10 +9,11 @@ export const DadosJogadorProvider = ({ children }) => {
 
   const getDadosJogadorData = async () => {
     setLoading(true);
-    
+
     try {
       const res = await getJogadorMe();
-      
+      console.log("Dados do jogador:", res.data);
+
       setDadosJogador(res.data);
     } catch (err) {
       console.error("Erro ao buscar dados do jogador:", err);
@@ -27,17 +28,20 @@ export const DadosJogadorProvider = ({ children }) => {
   }, []);
 
   return (
-    <DadosJogadorContext.Provider value={{ dadosJogador, getDadosJogadorData, loading }}>
+    <DadosJogadorContext.Provider
+      value={{ dadosJogador, getDadosJogadorData, loading }}
+    >
       {children}
     </DadosJogadorContext.Provider>
   );
 };
 
-
 export const useDadosJogador = () => {
   const context = useContext(DadosJogadorContext);
   if (!context) {
-    throw new Error("useDadosJogador deve ser usado dentro de um DadosJogadorProvider");
+    throw new Error(
+      "useDadosJogador deve ser usado dentro de um DadosJogadorProvider"
+    );
   }
   return context;
 };

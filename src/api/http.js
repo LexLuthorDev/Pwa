@@ -8,4 +8,15 @@ const http = axios.create({
   withCredentials: true, // ⬅️ ESSENCIAL para cookies HttpOnly
 });
 
+http.interceptors.response.use(
+  response => response,  // Para capturar a resposta normalmente
+  error => {
+    // Captura qualquer erro de rede
+    if (error.message === "Network Error") {
+      console.error("Erro de rede! Verifique a conexão com o servidor.");
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default http;
