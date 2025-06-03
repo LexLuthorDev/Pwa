@@ -1,6 +1,6 @@
 import http from "./http";
 
-export const temaCassino = () => http.get("/cassino/tema");
+export const temaCassino = () => http.post("/cassino/tema");
 
 
 export const createJogador = (data) => http.post("/jogador", data);
