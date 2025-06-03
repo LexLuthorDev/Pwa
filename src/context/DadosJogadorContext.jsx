@@ -16,7 +16,10 @@ export const DadosJogadorProvider = ({ children }) => {
 
       setDadosJogador(res.data);
     } catch (err) {
-      console.error("Erro ao buscar dados do jogador:", err);
+      if(err.response.status === 401) {
+        setDadosJogador(null);
+      }
+      //console.error("Erro ao buscar dados do jogador:", err);
     } finally {
       setLoading(false);
     }
