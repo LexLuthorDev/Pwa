@@ -9,7 +9,7 @@ export default function BottomNav() {
   const theme = useTheme();
 
   return (
-    <nav style={{ backgroundColor: theme?.cor_secundaria }} className="fixed bottom-0 left-0 w-full  border-t border-zinc-800 flex justify-around items-center h-16 z-50">
+    <nav style={{ backgroundColor: theme?.cor_secundaria, borderColor: theme?.cor_secundaria }} className="fixed bottom-0 left-0 w-full  border-t  flex justify-around items-center h-16 z-50">
       <button onClick={() => navigate("/")} style={{ color: theme?.cor_texto_primaria }} className=" flex flex-col items-center text-xs">
         <Home style={{ color: theme?.cor_primaria }} className="w-5 h-5" />
         Início
