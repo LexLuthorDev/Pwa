@@ -48,7 +48,7 @@ export default function Footer() {
   const [hoveredCategoria, setHoveredCategoria] = useState(null);
 
   return (
-    <footer className="bg-zinc-800 border-t border-zinc-700 py-6 sm:py-8">
+    <footer className="bg-zinc-800 border-t border-zinc-700 py-6 sm:py-8 mb-15">
       <div className="container mx-auto px-3">
         {/* Versão desktop */}
         <div className="sm:grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">

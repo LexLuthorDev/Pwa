@@ -10,6 +10,7 @@ import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { useTheme } from "@/context/ThemeContext";
 import usePwaInstallPrompt from "@/hooks/usePwaInstallPrompt";
 import PwaInstallBanner from "@/components/PwaInstallBanner"; // ✅ novo banner
+import BottomNav from "@/components/home/BottomNav";
 
 // ==================== DADOS MOCKADOS ====================
 
@@ -180,7 +181,7 @@ export default function PageHome() {
       {/* Cabeçalho */}
       <Header offsetTop={showInstallModal ? 47 : 0} />
 
-      <main className="flex-1">
+      <main className="flex-1 mt-10">
         {/* Seção de Banner */}
         <BannerSection />
 
@@ -204,6 +205,8 @@ export default function PageHome() {
       <Footer />
 
       <ScrollToTopButton />
+
+      <BottomNav />
     </div>
   );
 }

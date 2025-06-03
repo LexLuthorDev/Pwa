@@ -34,7 +34,7 @@ export default function ScrollToTopButton() {
         left: "50%",
         transform: "translateX(-50%)",
       }}
-      className="fixed bottom-20 z-50 px-4 py-1 rounded-md bg-zinc-800 text-white shadow-lg hover:bg-zinc-700 transition"
+      className="fixed bottom-22 z-50 px-4 py-1 rounded-md bg-zinc-800 text-white shadow-lg hover:bg-zinc-700 transition"
       aria-label="Voltar ao topo"
     >
       <span className="flex items-center gap-2 text-xs">

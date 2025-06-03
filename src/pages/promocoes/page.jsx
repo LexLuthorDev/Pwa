@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Header from "@/components/home/Header";
 import { useTheme } from "@/context/ThemeContext";
 import { Gift } from "lucide-react";
-
+import BottomNav from "@/components/home/BottomNav";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 import { promocoes } from "@/mocks/promocoes";
@@ -51,6 +51,8 @@ export default function PagePromocoes() {
       </main>
 
       <ScrollToTopButton />
+
+      <BottomNav />
     </div>
   );
 }
