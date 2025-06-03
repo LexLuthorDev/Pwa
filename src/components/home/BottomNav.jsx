@@ -1,7 +1,7 @@
 "use client";
 
 import { useNavigate } from "react-router-dom";
-import { Home, Gift, Menu, Smile, User } from "lucide-react";
+import { Home, Gift, Menu, Smile, User, Medal } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
 export default function BottomNav() {
@@ -27,7 +27,7 @@ export default function BottomNav() {
           style={{ backgroundColor: theme?.cor_primaria, borderColor: theme?.cor_secundaria }}
           className=" w-16 h-16 rounded-full flex items-center justify-center border-4  shadow-xl"
         >
-          <Smile style={{ color: theme?.cor_texto_primaria }}  className=" w-8 h-8" />
+          <Medal style={{ color: theme?.cor_texto_primaria }}  className=" w-8 h-8" />
         </button>
       </div>
 
