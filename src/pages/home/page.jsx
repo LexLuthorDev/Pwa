@@ -6,8 +6,11 @@ import SearchAndCategories from "../../components/home/SearchAndCategories";
 import PromocoesSection from "../../components/home/PromocoesSection";
 import Footer from "../../components/home/Footer";
 import GameSection from "../../components/home/GameSection";
-
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 import { useTheme } from "@/context/ThemeContext";
+import usePwaInstallPrompt from "@/hooks/usePwaInstallPrompt";
+import PwaInstallBanner from "@/components/PwaInstallBanner"; // ✅ novo banner
+
 // ==================== DADOS MOCKADOS ====================
 
 // Jogos em destaque
@@ -163,10 +166,19 @@ const jogosNovos = [
 
 export default function PageHome() {
   const theme = useTheme();
+  const { showInstallModal, triggerInstall, setShowInstallModal } =
+      usePwaInstallPrompt();
   return (
     <div style={{ backgroundColor: theme?.cor_fundo || "#18181B" }} className="min-h-screen flex flex-col text-white">
+      {/* BANNER FIXO ACIMA DO HEADER */}
+            <PwaInstallBanner
+              visible={showInstallModal}
+              onInstall={triggerInstall}
+              onClose={() => setShowInstallModal(false)}
+            />
+
       {/* Cabeçalho */}
-      <Header />
+      <Header offsetTop={showInstallModal ? 47 : 0} />
 
       <main className="flex-1">
         {/* Seção de Banner */}
@@ -190,6 +202,8 @@ export default function PageHome() {
 
       {/* Rodapé */}
       <Footer />
+
+      <ScrollToTopButton />
     </div>
   );
 }

@@ -20,8 +20,13 @@ import {
   Headphones,
   X,
 } from "lucide-react";
+import usePwaInstallPrompt from "@/hooks/usePwaInstallPrompt";
 
-export default function Header() {
+
+export default function Header({ offsetTop = 0 }) {
+  const { showInstallModal, triggerInstall, setShowInstallModal } =
+      usePwaInstallPrompt();
+  
   const theme = useTheme();
   const { dadosJogador } = useDadosJogador();
   const saldoJogador = dadosJogador?.usuario?.jogador?.saldo_total ?? 0;
@@ -117,8 +122,8 @@ export default function Header() {
     <>
       {/* HEADER */}
       <header
-        style={{ backgroundColor: theme?.cor_secundaria }}
-        className="sticky top-0 z-50 backdrop-blur-sm border-b border-zinc-700"
+        style={{ backgroundColor: theme?.cor_secundaria, top: `${offsetTop}px`  }}
+        className="sticky z-50 backdrop-blur-sm border-b border-zinc-700 w-full pr-2 pl-2"
       >
         <div className="container mx-auto px-1 py-2 sm:py-3 flex items-center justify-between">
           <div className="flex items-center">
@@ -226,7 +231,7 @@ export default function Header() {
       {/* MENU LATERAL */}
       {menuMobileAberto && (
         <aside
-          className={`fixed top-1 right-0 w-57 h-full z-50 shadow-lg transform transition-transform duration-300 ${
+          className={`fixed top-0 right-0 w-64 h-screen z-50 shadow-lg transform transition-transform duration-300 flex flex-col ${
             menuMobileAberto ? "translate-x-0" : "translate-x-full"
           }`}
           style={{
@@ -304,7 +309,7 @@ export default function Header() {
           </div>
 
           {/* Menu Items */}
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto px-2 pb-4">
             <div className="p-2">
               {menuItems.slice(2).map((item, index) => (
                 <button
@@ -359,7 +364,10 @@ export default function Header() {
 
           {/* Footer com informações */}
           <div className="p-4 border-t border-zinc-700">
-            <div className="text-xs opacity-70 text-center">
+            <div
+              style={{ color: theme?.cor_primaria }}
+              className="text-xs opacity-70 text-center"
+            >
               <p>Plataforma Oficialmente</p>
               <p>Licenciada no BRASIL</p>
             </div>

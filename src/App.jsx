@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { DadosJogadorProvider } from "./context/DadosJogadorContext";
 
 import PageHome from "./pages/home/page";
+import PagePromocoes from "./pages/promocoes/page";
 import DoubleGame from "./pages/games/double/page";
 import MinesGame from "./pages/games/mines/page";
 import Login from "./pages/login/page";
@@ -30,6 +31,7 @@ function App() {
                 </DadosJogadorProvider>
               }
             />
+            <Route path="/promocoes" element={<DadosJogadorProvider><PagePromocoes /> </DadosJogadorProvider>} />
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route

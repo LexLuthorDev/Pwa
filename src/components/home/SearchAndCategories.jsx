@@ -123,7 +123,7 @@ export default function SearchAndCategories() {
   }, []);
 
   return (
-    <section className="container mx-auto px-1 py-0 sm:py-0">
+    <section className="container mx-auto px-1 py-0 sm:py-0 pr-2 pl-2">
       <div className="flex flex-col gap-3 sm:gap-4">
         <div className="relative w-full">
           <svg
