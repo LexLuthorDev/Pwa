@@ -10,12 +10,12 @@ export default function BottomNav() {
 
   return (
     <nav style={{ backgroundColor: theme?.cor_secundaria }} className="fixed bottom-0 left-0 w-full  border-t border-zinc-800 flex justify-around items-center h-16 z-50">
-      <button onClick={() => navigate("/")} className="text-white flex flex-col items-center text-xs">
+      <button onClick={() => navigate("/")} style={{ color: theme?.cor_texto_primaria }} className=" flex flex-col items-center text-xs">
         <Home style={{ color: theme?.cor_primaria }} className="w-5 h-5" />
         Início
       </button>
 
-      <button onClick={() => navigate("/bonus")} className="text-white flex flex-col items-center text-xs">
+      <button onClick={() => navigate("/bonus")} style={{ color: theme?.cor_texto_primaria }} className=" flex flex-col items-center text-xs">
         <Gift style={{ color: theme?.cor_primaria }} className="w-5 h-5" />
         Bônus
       </button>
@@ -27,16 +27,16 @@ export default function BottomNav() {
           style={{ backgroundColor: theme?.cor_primaria, borderColor: theme?.cor_secundaria }}
           className=" w-16 h-16 rounded-full flex items-center justify-center border-4  shadow-xl"
         >
-          <Smile  className="text-white w-8 h-8" />
+          <Smile style={{ color: theme?.cor_texto_primaria }}  className=" w-8 h-8" />
         </button>
       </div>
 
-      <button onClick={() => navigate("/perfil")} className="text-white flex flex-col items-center text-xs">
+      <button onClick={() => navigate("/perfil")} style={{ color: theme?.cor_texto_primaria }} className=" flex flex-col items-center text-xs">
         <User style={{ color: theme?.cor_primaria }} className="w-5 h-5" />
         Perfil
       </button>
 
-      <button onClick={() => navigate("/menu")} className="text-white flex flex-col items-center text-xs">
+      <button onClick={() => navigate("/menu")} style={{ color: theme?.cor_texto_primaria }} className=" flex flex-col items-center text-xs">
         <Menu style={{ color: theme?.cor_primaria }} className="w-5 h-5" />
         Menu
       </button>
