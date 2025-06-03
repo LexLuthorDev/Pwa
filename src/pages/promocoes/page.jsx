@@ -29,7 +29,7 @@ export default function PagePromocoes() {
 
       <Header offsetTop={showInstallModal ? 47 : 0} />
 
-      <main className="flex-1">
+      <main className="flex-1 mb-20">
         <section className="container mx-auto px-3 py-4 sm:py-6">
           <div className="flex items-center justify-start mb-3 gap-2">
             <Gift style={{ color: theme?.cor_primaria }} className="w-6 h-6 " />
